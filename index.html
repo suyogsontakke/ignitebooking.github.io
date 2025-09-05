@@ -54,9 +54,6 @@
         .modal-scrollbar::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
         
         /* Chatbot styles */
-        #chat-widget {
-            transition: all 0.3s ease-in-out;
-        }
         #chat-window {
             height: 70vh;
             max-height: 500px;
@@ -64,14 +61,6 @@
         }
         .chat-message {
             animation: fadeIn 0.5s ease-in-out;
-        }
-         #ask-help-popup {
-            transition: all 0.3s ease-in-out;
-            transform: translateY(0.5rem);
-        }
-        #chat-bubble:hover #ask-help-popup {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
@@ -91,10 +80,10 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                 <span>October 25, 2025</span>
                             </div>
-                            <div class="flex items-center">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Mahure+Lawn+Nagpur" target="_blank" class="flex items-center hover:text-white transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                                 <span>Mahure Lawn, Nagpur</span>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -271,13 +260,13 @@
     
     <!-- AI Chatbot "Dolly" -->
     <div id="chat-widget" class="fixed bottom-5 right-5 z-40">
-        <div id="ask-help-popup" class="absolute bottom-[4.5rem] right-0 bg-indigo-600 text-white text-sm font-semibold py-1 px-3 rounded-full opacity-0 transition-all">Ask Dolly</div>
-        <button id="chat-bubble" class="bg-indigo-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
-            <img id="chat-logo" src="https://i.postimg.cc/Qdr8NTT1/1757060841314-1.png" alt="Dolly AI Assistant" class="w-14 h-14 rounded-full object-cover">
+        <div id="ask-help-popup" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-indigo-600 text-white text-sm font-semibold py-1 px-3 rounded-full shadow-lg whitespace-nowrap">Ask Dolly</div>
+        <button id="chat-bubble" class="w-20 h-20 bg-transparent rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
+            <img id="chat-logo" src="https://i.postimg.cc/Qdr8NTT1/1757060841314-1.png" alt="Dolly AI Assistant" class="w-full h-full object-cover">
         </button>
-        <div id="chat-window" class="absolute bottom-20 right-0 w-80 bg-light-navy rounded-xl shadow-2xl hidden flex-col">
+        <div id="chat-window" class="absolute bottom-28 right-0 w-80 bg-light-navy rounded-xl shadow-2xl hidden flex-col">
             <div class="bg-indigo-700 text-white p-4 rounded-t-xl flex items-center gap-3">
-                <img id="chat-header-logo" src="https://i.postimg.cc/Qdr8NTT1/1757060841314-1.png" class="w-10 h-10 rounded-full border-2 border-indigo-400">
+                <img id="chat-header-logo" src="https://i.postimg.cc/Qdr8NTT1/1757060841314-1.png" class="w-10 h-10">
                 <div>
                     <h3 class="font-bold text-lg">Dolly</h3>
                     <p class="text-xs text-indigo-200">Your AI Helper for IGNITE 2025</p>
@@ -288,7 +277,7 @@
             </div>
             <div class="p-4 border-t border-slate-700">
                 <form id="chat-form" class="flex gap-2">
-                    <input type="text" id="chat-input" class="flex-1 bg-dark-navy text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ask a question...">
+                    <input type="text" id="chat-input" class="flex-1 bg-dark-navy text-white placeholder-slate-400 px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ask a question...">
                     <button type="submit" class="bg-indigo-600 text-white w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.428A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
                     </button>
@@ -336,6 +325,7 @@
         const chatForm = document.getElementById('chat-form');
         const chatInput = document.getElementById('chat-input');
         const chatMessages = document.getElementById('chat-messages');
+        const askHelpPopup = document.getElementById('ask-help-popup');
 
         // --- UI Logic ---
         function showNotification(title, message, type = 'success') {
@@ -557,13 +547,13 @@
         let chatHistory = []; 
 
         async function getDollyResponse(userMessage) {
-            chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+            const currentHistory = [...chatHistory, { role: "user", parts: [{ text: userMessage }] }];
 
             const apiKey = ""; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
             
             const payload = {
-                contents: chatHistory,
+                contents: currentHistory,
                 systemInstruction: {
                     parts: [{ text: systemPrompt }]
                 }
@@ -577,13 +567,15 @@
                 });
 
                 if (!response.ok) {
-                    chatHistory.pop(); 
                     throw new Error(`API request failed with status ${response.status}`);
                 }
 
                 const result = await response.json();
                 const botMessage = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I'm having trouble connecting. Please try again.";
+                
+                chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
                 chatHistory.push({ role: "model", parts: [{ text: botMessage }] });
+                
                 return botMessage;
 
             } catch (error) {
@@ -603,8 +595,13 @@
         chatBubble.addEventListener('click', () => {
             chatWindow.classList.toggle('hidden');
             chatWindow.classList.toggle('flex');
+            askHelpPopup.classList.toggle('hidden');
+
             if (!chatWindow.classList.contains('hidden') && chatMessages.children.length === 0) {
-                 getDollyResponse("First time opening chat").then(response => addMessageToChat(response, 'bot'));
+                 const greeting = "Hao bhau! Main Dolly Chaiwala, #IGNITE Team se. Suyog Sontakke ne banaya mereko. Batau, kya kaam hai?";
+                 addMessageToChat(greeting, 'bot');
+                 // Also add greeting to history so the bot has context
+                 chatHistory.push({ role: "model", parts: [{ text: greeting }] });
             }
         });
 
