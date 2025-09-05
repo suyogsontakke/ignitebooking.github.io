@@ -52,6 +52,27 @@
         .modal-scrollbar::-webkit-scrollbar { width: 8px; }
         .modal-scrollbar::-webkit-scrollbar-track { background: var(--light-navy); border-radius: 10px; }
         .modal-scrollbar::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
+        
+        /* Chatbot styles */
+        #chat-widget {
+            transition: all 0.3s ease-in-out;
+        }
+        #chat-window {
+            height: 70vh;
+            max-height: 500px;
+            transition: all 0.3s ease-in-out;
+        }
+        .chat-message {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+         #ask-help-popup {
+            transition: all 0.3s ease-in-out;
+            transform: translateY(0.5rem);
+        }
+        #chat-bubble:hover #ask-help-popup {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -159,23 +180,24 @@
                 <div class="w-full md:w-1/2">
                     <div class="space-y-8">
                         <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Suyog Sontakke</h3><p class="text-blue-300">Event Lead</p></div><a href="https://www.instagram.com/suyog_sontakke/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
-                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Harsh Fulzele</h3><p class="text-blue-300">Organizer</p></div><a href="https://www.instagram.com/harshfulzele_09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
-                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Om Nimbalkar</h3><p class="text-blue-300">Technical Team</p></div><a href="https://www.instagram.com/om_nimbalkar09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
-                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Ziyauddin Ansari</h3><p class="text-blue-300">Promotional Team</p></div><a href="https://www.instagram.com/ziya__x09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
-                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Shivam Dharvaiya</h3><p class="text-blue-300">Social Media Team</p></div></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Harsh Fulzele</h3><p class="text-blue-300">Marketing Head</p></div><a href="https://www.instagram.com/harshfulzele_09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Om Nimbalkar</h3><p class="text-blue-300">Operations Manager</p></div><a href="https://www.instagram.com/om_nimbalkar09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Ziyauddin Ansari</h3><p class="text-blue-300">Team</p></div><a href="https://www.instagram.com/ziya__x09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- NEW WHATSAPP SECTION -->
     <section id="whatsapp-group-cta" class="py-16 sm:py-20 border-t border-b border-blue-900">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Join The Community</h2>
             <p class="mt-4 text-lg text-blue-300">Get instant updates, ask questions, and connect with other attendees in our official WhatsApp group.</p>
             <div class="mt-8">
-                <a href="https://chat.whatsapp.com/BA8XJ9N3FC3DuoIFmhOMge" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-green-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition-transform transform hover:scale-105 shadow-lg">
-                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.687-1.475L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.433-9.89-9.889-9.891-5.452 0-9.887 4.434-9.889 9.891.001 2.23 1.056 4.438 2.671 6.06L4.77 19.46l-2.525.792c.41-1.208 1.491-2.168 2.347-2.91l.832-.636zm-2.42-3.805c-.078-.13-.09-.282-.004-.424l.727-1.21c.177-.295.456-.492.758-.576l1.297-.335c.183-.047.341.026.438.182l.335.537c.11.177.125.395.038.592l-.529 1.018c-.087.177-.04.377.105.514l2.12 2.121c.137.144.336.192.514.105l1.018-.529c.197-.087.415-.072.592.038l.537.335c.157.098.23.255.182.438l-.335 1.297c-.084.302-.28.582-.576.758l-1.21.727c-.142.086-.294.074-.424-.004l-3.013-1.809-1.809-3.013z"/></svg>
+                 <!-- IMPORTANT: Replace the href with your actual WhatsApp Group Invite Link -->
+                <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-green-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition-transform transform hover:scale-105 shadow-lg">
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.687-1.475L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.433-9.89-9.889-9.891-5.452 0-9.887 4.434-9.889 9.891.001 2.23 1.056 4.438 2.671 6.06L4.77 19.46l-2.525.792c.41-1.208 1.491-2.168 2.347-2.91l.832-.636zm-2.42-3.805c-.078-.13-.09-.282-.004-.424l.727-1.21c.177-.295.456-.492.758-.576l1.297-.335c.183-.047.341.026.438.182l.335.537c.11.177.125.395.038.592l-.529 1.018c-.087.177-.04.377.105.514l2.12 2.121c.137.144.336.192.514.105l1.018-.529c.197-.087.415-.072.592.038l.537.335c.157.098.23.255.182.438l-.335 1.297c-.084.302-.28.582-.576.758l-1.21.727c-.142.086-.294.074-.424-.004l-3.013-1.809-1.809-3.013z"/></svg>
                     <span>Join WhatsApp Group</span>
                 </a>
             </div>
@@ -195,6 +217,7 @@
         </div>
     </section>
     
+    <!-- Notification Modal -->
     <div id="notificationModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden">
          <div class="bg-blue-900 border border-blue-700 rounded-2xl shadow-xl max-w-sm w-full p-8 text-center modal-fade-in" id="modalContent">
             <div id="modalIcon"></div>
@@ -204,6 +227,7 @@
         </div>
     </div>
 
+    <!-- NEW Ticket & Receipt Modal -->
     <div id="ticketModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden">
         <div class="w-full max-w-lg modal-fade-in relative">
             <button id="closeTicketModalBtn" class="absolute -top-3 -right-3 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg hover:bg-red-700 transition z-10">&times;</button>
@@ -212,11 +236,15 @@
                     <div class="ticket-main">
                         <h2 class="text-4xl text-indigo-600">IGNITE 2025</h2>
                         <p class="text-lg tracking-widest text-gray-500">ADMIT ONE</p>
-                        <div class="my-4"><p class="text-sm text-gray-500">ATTENDEE</p><p id="modalTicketName" class="text-3xl break-words"></p></div>
+                        <div class="my-4"><p class="text-sm text-gray-500">ATTENDEE</p><p id="modalTicketName" class="text-3xl"></p></div>
                         <div class="my-4"><p class="text-sm text-gray-500">TICKET TYPE</p><p id="modalTicketTypeDetail" class="text-xl"></p></div>
                         <p class="text-xs text-gray-400">This ticket is non-transferable.</p>
                     </div>
-                    <div class="ticket-stub py-4"> <p class="text-xl font-bold text-gray-700 mb-2">#IGNITE2025</p> <canvas id="modalQrCodeCanvas" class="flex-grow"></canvas> <p id="modalTicketIdStub" class="mt-2"></p> </div>
+                    <div class="ticket-stub">
+                        <p class="text-xl font-bold text-gray-700">#IGNITE 2025🔥</p>
+                        <canvas id="modalQrCodeCanvas"></canvas>
+                        <p id="modalTicketIdStub" class="text-xs text-gray-400"></p>
+                    </div>
                 </div>
                 <div id="receipt-to-download" class="receipt-container rounded-lg mt-4">
                      <div class="flex justify-between items-center border-b pb-4 mb-4 border-gray-200"><h2 class="text-2xl font-bold text-gray-800">Payment Receipt</h2><span class="text-sm text-gray-500" id="modalReceiptDate"></span></div>
@@ -237,6 +265,34 @@
                     <button id="downloadPdfBtn" class="w-full bg-red-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-red-700 transition mt-2">Download Both (PDF)</button>
                     <button id="downloadJpgBtn" class="w-full bg-green-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-green-700 transition mt-2">Download Both (JPG)</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AI Chatbot "Dolly" -->
+    <div id="chat-widget" class="fixed bottom-5 right-5 z-40">
+        <div id="ask-help-popup" class="absolute bottom-[4.5rem] right-0 bg-indigo-600 text-white text-sm font-semibold py-1 px-3 rounded-full opacity-0 transition-all">Ask Dolly</div>
+        <button id="chat-bubble" class="bg-indigo-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
+            <img id="chat-logo" src="https://i.postimg.cc/Qdr8NTT1/1757060841314-1.png" alt="Dolly AI Assistant" class="w-14 h-14 rounded-full object-cover">
+        </button>
+        <div id="chat-window" class="absolute bottom-20 right-0 w-80 bg-light-navy rounded-xl shadow-2xl hidden flex-col">
+            <div class="bg-indigo-700 text-white p-4 rounded-t-xl flex items-center gap-3">
+                <img id="chat-header-logo" src="https://i.postimg.cc/Qdr8NTT1/1757060841314-1.png" class="w-10 h-10 rounded-full border-2 border-indigo-400">
+                <div>
+                    <h3 class="font-bold text-lg">Dolly</h3>
+                    <p class="text-xs text-indigo-200">Your AI Helper for IGNITE 2025</p>
+                </div>
+            </div>
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto modal-scrollbar flex flex-col gap-2">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="p-4 border-t border-slate-700">
+                <form id="chat-form" class="flex gap-2">
+                    <input type="text" id="chat-input" class="flex-1 bg-dark-navy text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ask a question...">
+                    <button type="submit" class="bg-indigo-600 text-white w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.428A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -274,6 +330,13 @@
         const downloadPdfBtn = document.getElementById('downloadPdfBtn');
         const downloadJpgBtn = document.getElementById('downloadJpgBtn');
 
+        // --- Chatbot Elements ---
+        const chatBubble = document.getElementById('chat-bubble');
+        const chatWindow = document.getElementById('chat-window');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
         // --- UI Logic ---
         function showNotification(title, message, type = 'success') {
             const modalTitle = document.getElementById('modalTitle');
@@ -290,23 +353,15 @@
         function populateAndShowTicket(data) {
             currentAttendeeData = data;
             
+            // Populate modal elements
             document.getElementById('modalTicketName').textContent = data.name;
             document.getElementById('modalTicketTypeDetail').textContent = data.ticketTypeFullText;
-            
-            const ticketIdStub = document.getElementById('modalTicketIdStub');
-            ticketIdStub.textContent = `ID: ${data.docId.substring(0, 8).toUpperCase()}`;
-            ticketIdStub.className = 'text-xs text-gray-400 break-all';
-
-            const qrCanvas = document.getElementById('modalQrCodeCanvas');
-            qrCanvas.className = 'max-w-full h-auto'; 
-            new QRious({
-                element: qrCanvas,
+            document.getElementById('modalTicketIdStub').textContent = `ID: ${data.docId.substring(0, 8).toUpperCase()}`;
+            new QRious({ 
+                element: document.getElementById('modalQrCodeCanvas'), 
                 value: JSON.stringify({ id: data.docId, name: data.name, email: data.email }),
-                size: 200,      // Increased base size for more fill, auto-scales down
-                padding: 4,     
-                background: '#fdfbf4' 
+                size: 120
             });
-
             document.getElementById('modalReceiptDate').textContent = new Date().toLocaleDateString('en-IN', {dateStyle: 'long'});
             document.getElementById('modalReceiptName').textContent = data.name;
             document.getElementById('modalReceiptEmail').textContent = data.email;
@@ -321,12 +376,8 @@
         
         async function downloadElementAsJpg(elementId, fileName) {
             const element = document.getElementById(elementId);
-            const isTicket = elementId === 'ticket-to-download';
             try {
-                if (isTicket) {
-                    element.classList.remove('overflow-hidden');
-                }
-                const bgColor = isTicket ? '#fdfbf4' : '#ffffff';
+                 const bgColor = elementId === 'ticket-to-download' ? '#fdfbf4' : '#ffffff';
                 const canvas = await html2canvas(element, { scale: 3, backgroundColor: bgColor });
                 const link = document.createElement('a');
                 link.download = fileName;
@@ -335,10 +386,6 @@
             } catch (error) {
                 console.error(`Error generating JPG for ${elementId}:`, error);
                 alert(`Failed to generate ${fileName}. Please check the console.`);
-            } finally {
-                if (isTicket) {
-                    element.classList.add('overflow-hidden');
-                }
             }
         }
 
@@ -349,11 +396,9 @@
             const receiptElement = document.getElementById('receipt-to-download');
             
             try {
-                ticketElement.classList.remove('overflow-hidden');
-
                 const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: '#fdfbf4' });
+                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: null });
                 const ticketImgData = ticketCanvas.toDataURL('image/png');
                 const ticketImgProps = pdf.getImageProperties(ticketImgData);
                 const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -362,7 +407,7 @@
 
                 pdf.addPage();
                 
-                const receiptCanvas = await html2canvas(receiptElement, { scale: 3, backgroundColor: '#ffffff' });
+                const receiptCanvas = await html2canvas(receiptElement, { scale: 3, backgroundColor: null });
                 const receiptImgData = receiptCanvas.toDataURL('image/png');
                 const receiptImgProps = pdf.getImageProperties(receiptImgData);
                 const receiptPdfHeight = (receiptImgProps.height * pdfWidth) / receiptImgProps.width;
@@ -372,19 +417,15 @@
             } catch (error) {
                 console.error("PDF Generation Error:", error);
                 alert("Failed to generate PDF. Please check the console for errors.");
-            } finally {
-                ticketElement.classList.add('overflow-hidden');
             }
         }
-
+        
         async function downloadCombinedJpg() {
             if (!currentAttendeeData) return;
             const ticketElement = document.getElementById('ticket-to-download');
             const receiptElement = document.getElementById('receipt-to-download');
 
             try {
-                ticketElement.classList.remove('overflow-hidden');
-
                 const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: '#fdfbf4' });
                 const receiptCanvas = await html2canvas(receiptElement, { scale: 3, backgroundColor: '#ffffff' });
 
@@ -395,7 +436,7 @@
                 combinedCanvas.height = ticketCanvas.height + receiptCanvas.height + (padding * 3);
 
                 const ctx = combinedCanvas.getContext('2d');
-                ctx.fillStyle = '#fdfbf4';
+                ctx.fillStyle = '#0A192F';
                 ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
 
                 const ticketX = (combinedCanvas.width - ticketCanvas.width) / 2;
@@ -412,10 +453,9 @@
             } catch (error) {
                 console.error("JPG Generation Error:", error);
                 alert("Failed to generate JPG. Please check the console for errors.");
-            } finally {
-                ticketElement.classList.add('overflow-hidden');
             }
         }
+
 
         // --- Firebase Logic ---
         async function initializeFirebase() {
@@ -445,10 +485,10 @@
             const ticketTypeElement = form.ticketType.options[form.ticketType.selectedIndex];
             const ticketTypeFullText = ticketTypeElement.text;
             
-            let amount = 79900; 
+            let amount = 79900; // Only Freshers Pass is available
 
             const options = {
-                "key": "rzp_test_RCthJa2Mqp2sit", 
+                "key": "rzp_test_RCthJa2Mqp2sit", // Replace with your Razorpay Key ID
                 "amount": amount,
                 "currency": "INR",
                 "name": "IGNITE 2025",
@@ -471,6 +511,7 @@
                         
                         populateAndShowTicket(attendeeData);
                         
+                        // Automatically download the ticket as JPG
                         setTimeout(() => {
                            downloadElementAsJpg('ticket-to-download', `IGNITE-2025-Ticket-${name.replace(/\s+/g, '-')}.jpg`);
                         }, 500);
@@ -487,6 +528,107 @@
             const rzp1 = new Razorpay(options);
             rzp1.open();
         }
+        
+        // --- CHATBOT LOGIC ---
+        const systemPrompt = `You are "Dolly," a friendly and helpful AI assistant for the event "IGNITE 2025". Your name is inspired by Dolly Chaiwala. Your purpose is to answer questions and resolve issues for users on the ticketing website in a fun, friendly, and authentic Nagpuri Hinglish style. You were created by Suyog Sontakke for the #IGNITE Team.
+
+        **Event Details:**
+        - **Name:** IGNITE 2025
+        - **Type:** Freshers Party
+        - **Date:** October 25, 2025
+        - **Location:** Mahure Lawn, Nagpur
+        - **Food:** Ticket includes wood-fired pizzas, burgers (veg & non-veg), and cosmic mocktails. (Hao, unlimited hai!)
+        - **Ticket Price:** Freshers Pass is ₹799.
+        - **Goal:** To give a warm and exciting welcome to the new students (fresher's ke liye ekdum bhari welcome).
+        - **Organizers & Socials:**
+          - **Event Instagram:** @ignite2025official
+          - **WhatsApp Group:** https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK
+          - **Team:** Suyog Sontakke (@suyog_sontakke), Harsh Fulzele (@harshfulzele_09), Om Nimbalkar (@om_nimbalkar09), Ziyauddin Ansari (@ziya__x09).
+
+        **Your Persona & Rules:**
+        - **Greeting:** Always start the first conversation with: "Hao bhau! Main Dolly Chaiwala, #IGNITE Team se. Suyog Sontakke ne banaya mereko. Batau, kya kaam hai?"
+        - **Language:** Use authentic Nagpuri slang and Hinglish. Phrases like "Hao," "bhari," "bhau," "kya bolti public," "tension nai lene ka," "ek number," etc.
+        - **Tone:** Friendly, enthusiastic, and helpful. Use emojis! 😎☕️🔥
+        - **Promote:** Mention the Instagram handle and WhatsApp group when relevant.
+        - **Unsatisfied Users:** If a user is not satisfied or you cannot answer their question, respond with: "Arre, tension nako lo. Aap direct humare team ko **ignite2025official@gmail.com** pe email kardo, woh log ekdum reply denge. Hao!"
+        - **Unrelated Questions:** If asked about something not related to the event, politely decline. "Sorry bhau, main sirf IGNITE 2025 event ke baare meinich bol sakti."
+        `;
+        
+        let chatHistory = []; 
+
+        async function getDollyResponse(userMessage) {
+            chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: chatHistory,
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    chatHistory.pop(); 
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+
+                const result = await response.json();
+                const botMessage = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I'm having trouble connecting. Please try again.";
+                chatHistory.push({ role: "model", parts: [{ text: botMessage }] });
+                return botMessage;
+
+            } catch (error) {
+                console.error("AI Chat Error:", error);
+                return "I'm experiencing a technical issue right now. Please try again in a moment.";
+            }
+        }
+
+        function addMessageToChat(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message mb-3 p-3 rounded-lg max-w-[80%] ${sender === 'user' ? 'bg-indigo-600 text-white self-end rounded-br-none' : 'bg-slate-700 text-slate-200 self-start rounded-bl-none'}`;
+            messageDiv.innerHTML = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        chatBubble.addEventListener('click', () => {
+            chatWindow.classList.toggle('hidden');
+            chatWindow.classList.toggle('flex');
+            if (!chatWindow.classList.contains('hidden') && chatMessages.children.length === 0) {
+                 getDollyResponse("First time opening chat").then(response => addMessageToChat(response, 'bot'));
+            }
+        });
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+
+            addMessageToChat(userMessage, 'user');
+            chatInput.value = '';
+
+            const typingIndicator = document.createElement('div');
+            typingIndicator.id = 'typing-indicator';
+            typingIndicator.className = 'chat-message mb-3 p-3 rounded-lg max-w-[80%] bg-slate-700 text-slate-400 self-start rounded-bl-none italic';
+            typingIndicator.textContent = 'Dolly is typing...';
+            chatMessages.appendChild(typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            const botResponse = await getDollyResponse(userMessage);
+            
+            typingIndicator.remove();
+            addMessageToChat(botResponse, 'bot');
+        });
+
 
         // --- Event Listeners ---
         registrationForm.addEventListener('submit', handlePaymentAndRegistration);
@@ -512,5 +654,4 @@
         document.addEventListener('DOMContentLoaded', initializeFirebase);
     </script>
 </body>
-
 </html>
