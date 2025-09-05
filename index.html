@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGNITE 2025 | Event Ticketing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dark-navy: #0A192F;
+            --light-navy: #102A43;
+            --slate: #8892b0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-navy);
+            background-image: linear-gradient(135deg, var(--light-navy) 0%, var(--dark-navy) 100%);
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .modal-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .form-slide-in { animation: slideInUp 0.5s ease-out forwards; }
+        
+        /* Ticket Styles */
+        .movie-ticket {
+            font-family: 'Bebas Neue', cursive; background-color: #fdfbf4; color: #333;
+            border: 1px solid #ddd; display: flex; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+        }
+        .ticket-main { width: 70%; padding: 1.5rem; border-right: 2px dashed #ccc; text-align: left; }
+        .ticket-stub {
+            width: 30%; padding: 0.5rem 1rem; gap: 0.5rem; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; position: relative;
+        }
+        .ticket-stub::before, .ticket-stub::after {
+            content: ''; position: absolute; left: -12px; width: 20px; height: 20px;
+            background: var(--dark-navy); border-radius: 50%; border: 1px solid #2C4A6B;
+        }
+        .ticket-stub::before { top: -11px; } .ticket-stub::after { bottom: -11px; }
+        .receipt-container {
+            font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1f2937;
+            padding: 1.5rem; margin-top: 1rem; border: 1px solid #e5e7eb;
+        }
+        .modal-scrollbar::-webkit-scrollbar { width: 8px; }
+        .modal-scrollbar::-webkit-scrollbar-track { background: var(--light-navy); border-radius: 10px; }
+        .modal-scrollbar::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <main class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-5xl mx-auto">
+            <div class="bg-blue-950/70 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                
+                <div class="w-full md:w-1/3 bg-gradient-to-br from-indigo-700 to-blue-800 p-6 sm:p-8 text-white flex flex-col justify-center">
+                    <div class="py-8">
+                        <h1 class="text-4xl sm:text-5xl font-bold mb-4" style="font-family: 'Bebas Neue', cursive;">IGNITE 2025</h1>
+                        <p class="text-blue-200 mb-8">
+                            🚀 Igniting the vibe – Freshers Ignite 2025 🔥 The ultimate welcome to the new era.
+                        </p>
+                        <div class="space-y-3 text-blue-100">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                <span>October 25, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                <span>Mahure Lawn, Nagpur</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-2/3 p-6 sm:p-8 flex items-center justify-center">
+                    <div id="userView" class="w-full max-w-md py-8">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-blue-50 mb-2">Register Now</h2>
+                        <p class="text-blue-200 mb-6">Your unforgettable experience is just a few clicks away.</p>
+                        <form id="registrationForm" class="space-y-5">
+                            <div class="form-slide-in" style="animation-delay: 100ms;">
+                                <label for="name" class="block text-sm font-medium text-blue-200">Full Name</label>
+                                <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 bg-blue-800 text-blue-50 border border-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                            </div>
+                            <div class="form-slide-in" style="animation-delay: 200ms;">
+                                <label for="email" class="block text-sm font-medium text-blue-200">Email Address</label>
+                                <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 bg-blue-800 text-blue-50 border border-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                            </div>
+                            <div class="form-slide-in" style="animation-delay: 300ms;">
+                                <label for="mobile" class="block text-sm font-medium text-blue-200">Mobile Number</label>
+                                <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" maxlength="10" title="Please enter a valid 10-digit mobile number." class="mt-1 block w-full px-4 py-3 bg-blue-800 text-blue-50 border border-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                            </div>
+                            <div class="form-slide-in hidden" style="animation-delay: 400ms;">
+                                <label for="ticketType" class="block text-sm font-medium text-blue-200">Ticket Type</label>
+                                <select id="ticketType" name="ticketType" required class="mt-1 block w-full px-4 py-3 bg-blue-800 text-blue-50 border border-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                    <option value="General Admission">Freshers Pass (₹799)</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/50 transition-transform transform hover:scale-105 shadow-lg form-slide-in" style="animation-delay: 500ms;">
+                                Proceed to Pay
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-xs text-blue-400 mt-4 space-y-1 pb-4">
+                <p>By Suyog Sontakke</p>
+            </div>
+        </div>
+    </main>
+
+    <section id="food-menu" class="py-16 sm:py-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Feast Your Eyes: The Ignite Menu</h2>
+                <p class="mt-4 text-lg text-blue-300">Your ticket includes a selection of amazing food & drinks to keep the energy high!</p>
+            </div>
+            <div class="mt-12 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&auto=format&fit=crop" alt="Pizza">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-blue-50">Blazing Pizzas</h3>
+                        <p class="mt-2 text-blue-300">Wood-fired pizzas with a variety of fresh toppings to choose from.</p>
+                    </div>
+                </div>
+                <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=500&auto=format&fit=crop" alt="Burgers">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-blue-50">Titan Burgers</h3>
+                        <p class="mt-2 text-blue-300">Juicy, oversized burgers, both veg and non-veg, grilled to perfection.</p>
+                    </div>
+                </div>
+                <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img class="w-full h-48 object-cover" src="https://my.vanderbilthealth.com/wp-content/uploads/2019/12/Refresh_Mocktails_Hero.jpg" alt="Mocktails">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-blue-50">Cosmic Mocktails</h3>
+                        <p class="mt-2 text-blue-300">Refreshing, non-alcoholic drinks in a rainbow of electrifying flavours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team-section" class="py-16 sm:py-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Meet The #IGNITE Team</h2>
+                <p class="mt-4 text-lg text-blue-300">The minds behind the magic. Connect with us!</p>
+            </div>
+            <div class="mt-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div class="w-full md:w-1/2">
+                    <img class="w-full rounded-lg shadow-2xl aspect-[4/3] object-cover" src="https://i.postimg.cc/KYGqSWWC/Whats-App-Image-2025-09-03-at-10-39-29-AM.jpg" alt="IGNITE Team Group Photo">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <div class="space-y-8">
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Suyog Sontakke</h3><p class="text-blue-300">Event Lead</p></div><a href="https://www.instagram.com/suyog_sontakke/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Harsh Fulzele</h3><p class="text-blue-300">Organizer</p></div><a href="https://www.instagram.com/harshfulzele_09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Om Nimbalkar</h3><p class="text-blue-300">Technical Team</p></div><a href="https://www.instagram.com/om_nimbalkar09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Ziyauddin Ansari</h3><p class="text-blue-300">Promotional Team</p></div><a href="https://www.instagram.com/ziya__x09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Shivam Dharwaiya</h3><p class="text-blue-300">Social Media Team</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="whatsapp-group-cta" class="py-16 sm:py-20 border-t border-b border-blue-900">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Join The Community</h2>
+            <p class="mt-4 text-lg text-blue-300">Get instant updates, ask questions, and connect with other attendees in our official WhatsApp group.</p>
+            <div class="mt-8">
+                <a href="https://chat.whatsapp.com/BA8XJ9N3FC3DuoIFmhOMge" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-green-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition-transform transform hover:scale-105 shadow-lg">
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.687-1.475L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.433-9.89-9.889-9.891-5.452 0-9.887 4.434-9.889 9.891.001 2.23 1.056 4.438 2.671 6.06L4.77 19.46l-2.525.792c.41-1.208 1.491-2.168 2.347-2.91l.832-.636zm-2.42-3.805c-.078-.13-.09-.282-.004-.424l.727-1.21c.177-.295.456-.492.758-.576l1.297-.335c.183-.047.341.026.438.182l.335.537c.11.177.125.395.038.592l-.529 1.018c-.087.177-.04.377.105.514l2.12 2.121c.137.144.336.192.514.105l1.018-.529c.197-.087.415-.072.592.038l.537.335c.157.098.23.255.182.438l-.335 1.297c-.084.302-.28.582-.576.758l-1.21.727c-.142.086-.294.074-.424-.004l-3.013-1.809-1.809-3.013z"/></svg>
+                    <span>Join WhatsApp Group</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="instagram-cta" class="py-16 sm:py-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Get Updates, Stay Connected!</h2>
+            <p class="mt-4 text-lg text-blue-300">Follow us on Instagram for the latest announcements, behind-the-scenes content, and future events.</p>
+            <div class="mt-8">
+                <a href="https://www.instagram.com/ignite2025official/" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-4 px-8 rounded-lg hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-4 focus:ring-pink-500/50 transition-transform transform hover:scale-105 shadow-lg">
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
+                    <span>Follow @ignite2025official</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <div id="notificationModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden">
+         <div class="bg-blue-900 border border-blue-700 rounded-2xl shadow-xl max-w-sm w-full p-8 text-center modal-fade-in" id="modalContent">
+            <div id="modalIcon"></div>
+            <h3 id="modalTitle" class="text-2xl font-bold mt-4 text-blue-50"></h3>
+            <p id="modalMessage" class="text-blue-200 mt-2"></p>
+            <button id="modalCloseBtn" class="mt-6 bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-900 focus:ring-indigo-500">Close</button>
+        </div>
+    </div>
+
+    <div id="ticketModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden">
+        <div class="w-full max-w-lg modal-fade-in relative">
+            <button id="closeTicketModalBtn" class="absolute -top-3 -right-3 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg hover:bg-red-700 transition z-10">&times;</button>
+            <div class="bg-dark-navy p-4 rounded-lg max-h-[90vh] overflow-y-auto modal-scrollbar">
+                <div id="ticket-to-download" class="movie-ticket rounded-lg overflow-hidden">
+                    <div class="ticket-main">
+                        <h2 class="text-4xl text-indigo-600">IGNITE 2025</h2>
+                        <p class="text-lg tracking-widest text-gray-500">ADMIT ONE</p>
+                        <div class="my-4"><p class="text-sm text-gray-500">ATTENDEE</p><p id="modalTicketName" class="text-3xl break-words"></p></div>
+                        <div class="my-4"><p class="text-sm text-gray-500">TICKET TYPE</p><p id="modalTicketTypeDetail" class="text-xl"></p></div>
+                        <p class="text-xs text-gray-400">This ticket is non-transferable.</p>
+                    </div>
+                    <div class="ticket-stub py-4"> <p class="text-xl font-bold text-gray-700 mb-2">#IGNITE2025</p> <canvas id="modalQrCodeCanvas" class="flex-grow"></canvas> <p id="modalTicketIdStub" class="mt-2"></p> </div>
+                </div>
+                <div id="receipt-to-download" class="receipt-container rounded-lg mt-4">
+                     <div class="flex justify-between items-center border-b pb-4 mb-4 border-gray-200"><h2 class="text-2xl font-bold text-gray-800">Payment Receipt</h2><span class="text-sm text-gray-500" id="modalReceiptDate"></span></div>
+                    <div class="space-y-4">
+                        <div><p class="text-sm text-gray-500">Billed To:</p><p class="font-semibold" id="modalReceiptName"></p><p class="text-sm" id="modalReceiptEmail"></p></div>
+                        <div><p class="text-sm text-gray-500">Payment ID:</p><p class="font-semibold text-sm" id="modalReceiptPaymentId"></p></div>
+                        <table class="w-full text-left">
+                            <thead><tr class="border-b border-gray-200"><th class="py-2 font-semibold">Description</th><th class="py-2 font-semibold text-right">Amount</th></tr></thead>
+                            <tbody><tr><td class="py-2" id="modalReceiptDescription"></td><td class="py-2 text-right" id="modalReceiptAmount"></td></tr></tbody>
+                            <tfoot><tr class="border-t-2 border-gray-800 font-bold"><td class="py-2">Total Paid</td><td class="py-2 text-right" id="modalReceiptTotal"></td></tr></tfoot>
+                        </table>
+                        <div class="text-center pt-4"><p class="text-2xl font-bold text-green-600 border-4 border-green-600 rounded-lg p-2 inline-block -rotate-12">PAID</p></div>
+                    </div>
+                </div>
+                 <div class="bg-light-navy p-3 mt-4 rounded-lg flex flex-wrap gap-2 justify-center">
+                    <button id="downloadTicketBtn" class="flex-grow bg-indigo-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-indigo-700 transition">Download Ticket (JPG)</button>
+                    <button id="downloadReceiptBtn" class="flex-grow bg-slate-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-slate-700 transition">Download Receipt (JPG)</button>
+                    <button id="downloadPdfBtn" class="w-full bg-red-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-red-700 transition mt-2">Download Both (PDF)</button>
+                    <button id="downloadJpgBtn" class="w-full bg-green-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-green-700 transition mt-2">Download Both (JPG)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Configuration ---
+        const ORGANIZER_WHATSAPP_NUMBER = '919322408490';
+        const firebaseConfig = {
+          apiKey: "AIzaSyAPd9loQiNnouyKtxfwv-s7jcPzpZKmhys",
+          authDomain: "ignite-event-2025-nagpur.firebaseapp.com",
+          projectId: "ignite-event-2025-nagpur",
+          storageBucket: "ignite-event-2025-nagpur.firebasestorage.app",
+          messagingSenderId: "480552824914",
+          appId: "1:480552824914:web:d67e8c9f208c67ac7fef8b",
+          measurementId: "G-RLPWDK8MR2"
+        };
+        
+        // --- App State ---
+        let db, auth;
+        let currentAttendeeData = null;
+
+        // --- UI Elements ---
+        const registrationForm = document.getElementById('registrationForm');
+        const notificationModal = document.getElementById('notificationModal');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const ticketModal = document.getElementById('ticketModal');
+        const closeTicketModalBtn = document.getElementById('closeTicketModalBtn');
+        const downloadTicketBtn = document.getElementById('downloadTicketBtn');
+        const downloadReceiptBtn = document.getElementById('downloadReceiptBtn');
+        const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+        const downloadJpgBtn = document.getElementById('downloadJpgBtn');
+
+        // --- UI Logic ---
+        function showNotification(title, message, type = 'success') {
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalIcon = document.getElementById('modalIcon');
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modalIcon.innerHTML = type === 'error' 
+                ? `<svg class="w-16 h-16 mx-auto text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+                : `<svg class="w-16 h-16 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+            notificationModal.classList.remove('hidden');
+        }
+
+        function populateAndShowTicket(data) {
+            currentAttendeeData = data;
+            
+            document.getElementById('modalTicketName').textContent = data.name;
+            document.getElementById('modalTicketTypeDetail').textContent = data.ticketTypeFullText;
+            
+            const ticketIdStub = document.getElementById('modalTicketIdStub');
+            ticketIdStub.textContent = `ID: ${data.docId.substring(0, 8).toUpperCase()}`;
+            ticketIdStub.className = 'text-xs text-gray-400 break-all';
+
+            const qrCanvas = document.getElementById('modalQrCodeCanvas');
+            qrCanvas.className = 'max-w-full h-auto'; 
+            new QRious({
+                element: qrCanvas,
+                value: JSON.stringify({ id: data.docId, name: data.name, email: data.email }),
+                size: 200,      // Increased base size for more fill, auto-scales down
+                padding: 4,     
+                background: '#fdfbf4' 
+            });
+
+            document.getElementById('modalReceiptDate').textContent = new Date().toLocaleDateString('en-IN', {dateStyle: 'long'});
+            document.getElementById('modalReceiptName').textContent = data.name;
+            document.getElementById('modalReceiptEmail').textContent = data.email;
+            document.getElementById('modalReceiptPaymentId').textContent = data.paymentId;
+            document.getElementById('modalReceiptDescription').textContent = `Ticket: ${data.ticketTypeFullText}`;
+            const amountInRupees = `₹${(data.amount / 100).toFixed(2)}`;
+            document.getElementById('modalReceiptAmount').textContent = amountInRupees;
+            document.getElementById('modalReceiptTotal').textContent = amountInRupees;
+
+            ticketModal.classList.remove('hidden');
+        }
+        
+        async function downloadElementAsJpg(elementId, fileName) {
+            const element = document.getElementById(elementId);
+            const isTicket = elementId === 'ticket-to-download';
+            try {
+                if (isTicket) {
+                    element.classList.remove('overflow-hidden');
+                }
+                const bgColor = isTicket ? '#fdfbf4' : '#ffffff';
+                const canvas = await html2canvas(element, { scale: 3, backgroundColor: bgColor });
+                const link = document.createElement('a');
+                link.download = fileName;
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+            } catch (error) {
+                console.error(`Error generating JPG for ${elementId}:`, error);
+                alert(`Failed to generate ${fileName}. Please check the console.`);
+            } finally {
+                if (isTicket) {
+                    element.classList.add('overflow-hidden');
+                }
+            }
+        }
+
+        async function downloadCombinedPdf() {
+            if (!currentAttendeeData) return;
+            const { jsPDF } = window.jspdf;
+            const ticketElement = document.getElementById('ticket-to-download');
+            const receiptElement = document.getElementById('receipt-to-download');
+            
+            try {
+                ticketElement.classList.remove('overflow-hidden');
+
+                const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: '#fdfbf4' });
+                const ticketImgData = ticketCanvas.toDataURL('image/png');
+                const ticketImgProps = pdf.getImageProperties(ticketImgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const ticketPdfHeight = (ticketImgProps.height * pdfWidth) / ticketImgProps.width;
+                pdf.addImage(ticketImgData, 'PNG', 10, 10, pdfWidth - 20, ticketPdfHeight);
+
+                pdf.addPage();
+                
+                const receiptCanvas = await html2canvas(receiptElement, { scale: 3, backgroundColor: '#ffffff' });
+                const receiptImgData = receiptCanvas.toDataURL('image/png');
+                const receiptImgProps = pdf.getImageProperties(receiptImgData);
+                const receiptPdfHeight = (receiptImgProps.height * pdfWidth) / receiptImgProps.width;
+                pdf.addImage(receiptImgData, 'PNG', 10, 10, pdfWidth - 20, receiptPdfHeight);
+
+                pdf.save(`IGNITE-2025-Combined-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.pdf`);
+            } catch (error) {
+                console.error("PDF Generation Error:", error);
+                alert("Failed to generate PDF. Please check the console for errors.");
+            } finally {
+                ticketElement.classList.add('overflow-hidden');
+            }
+        }
+
+        async function downloadCombinedJpg() {
+            if (!currentAttendeeData) return;
+            const ticketElement = document.getElementById('ticket-to-download');
+            const receiptElement = document.getElementById('receipt-to-download');
+
+            try {
+                ticketElement.classList.remove('overflow-hidden');
+
+                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: '#fdfbf4' });
+                const receiptCanvas = await html2canvas(receiptElement, { scale: 3, backgroundColor: '#ffffff' });
+
+                const combinedCanvas = document.createElement('canvas');
+                const padding = 30; 
+                
+                combinedCanvas.width = Math.max(ticketCanvas.width, receiptCanvas.width) + (padding * 2);
+                combinedCanvas.height = ticketCanvas.height + receiptCanvas.height + (padding * 3);
+
+                const ctx = combinedCanvas.getContext('2d');
+                ctx.fillStyle = '#fdfbf4';
+                ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
+
+                const ticketX = (combinedCanvas.width - ticketCanvas.width) / 2;
+                ctx.drawImage(ticketCanvas, ticketX, padding);
+                
+                const receiptX = (combinedCanvas.width - receiptCanvas.width) / 2;
+                ctx.drawImage(receiptCanvas, receiptX, ticketCanvas.height + (padding * 2));
+
+                const link = document.createElement('a');
+                link.download = `IGNITE-2025-Combined-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.jpg`;
+                link.href = combinedCanvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+
+            } catch (error) {
+                console.error("JPG Generation Error:", error);
+                alert("Failed to generate JPG. Please check the console for errors.");
+            } finally {
+                ticketElement.classList.add('overflow-hidden');
+            }
+        }
+
+        // --- Firebase Logic ---
+        async function initializeFirebase() {
+             try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                await signInAnonymously(auth);
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                showNotification('Initialization Error', `Could not connect to the database: ${error.message}`, 'error');
+            }
+        }
+
+        async function handlePaymentAndRegistration(e) {
+            e.preventDefault();
+            if(!db) {
+                showNotification('Error', 'Database is not connected.', 'error');
+                return;
+            }
+
+            const form = e.target;
+            const name = form.name.value.trim();
+            const email = form.email.value.trim().toLowerCase();
+            const mobile = form.mobile.value.trim();
+            const ticketType = form.ticketType.value;
+            const ticketTypeElement = form.ticketType.options[form.ticketType.selectedIndex];
+            const ticketTypeFullText = ticketTypeElement.text;
+            
+            let amount = 79900; 
+
+            const options = {
+                "key": "rzp_test_RCthJa2Mqp2sit", 
+                "amount": amount,
+                "currency": "INR",
+                "name": "IGNITE 2025",
+                "description": `Ticket: ${ticketTypeFullText}`,
+                "handler": async function (response) {
+                    try {
+                        const attendeesCol = collection(db, 'attendees');
+                        const docRef = await addDoc(attendeesCol, {
+                            name, email, mobile, ticketType,
+                            paymentId: response.razorpay_payment_id,
+                            registeredAt: serverTimestamp() 
+                        });
+                        
+                        form.reset();
+                        const attendeeData = {
+                            docId: docRef.id, name, email, mobile,
+                            ticketType, ticketTypeFullText,
+                            paymentId: response.razorpay_payment_id, amount
+                        };
+                        
+                        populateAndShowTicket(attendeeData);
+                        
+                        setTimeout(() => {
+                           downloadElementAsJpg('ticket-to-download', `IGNITE-2025-Ticket-${name.replace(/\s+/g, '-')}.jpg`);
+                        }, 500);
+
+                    } catch (error) {
+                        console.error("Error saving document: ", error);
+                        showNotification('Registration Failed', `Payment successful, but failed to save data: ${error.message}`, 'error');
+                    }
+                },
+                "prefill": { name, email, contact: mobile },
+                "theme": { "color": "#4338CA" }
+            };
+
+            const rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+
+        // --- Event Listeners ---
+        registrationForm.addEventListener('submit', handlePaymentAndRegistration);
+        modalCloseBtn.addEventListener('click', () => notificationModal.classList.add('hidden'));
+        closeTicketModalBtn.addEventListener('click', () => ticketModal.classList.add('hidden'));
+
+        downloadTicketBtn.addEventListener('click', () => {
+            if (currentAttendeeData) {
+                downloadElementAsJpg('ticket-to-download', `IGNITE-2025-Ticket-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.jpg`);
+            }
+        });
+        
+        downloadReceiptBtn.addEventListener('click', () => {
+            if (currentAttendeeData) {
+                downloadElementAsJpg('receipt-to-download', `IGNITE-2025-Receipt-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.jpg`);
+            }
+        });
+
+        downloadPdfBtn.addEventListener('click', downloadCombinedPdf);
+        downloadJpgBtn.addEventListener('click', downloadCombinedJpg);
+        
+        // --- App Initialization ---
+        document.addEventListener('DOMContentLoaded', initializeFirebase);
+    </script>
+</body>
+</html>
