@@ -37,10 +37,9 @@
         }
         .ticket-main { width: 70%; padding: 1.5rem; border-right: 2px dashed #ccc; text-align: left; }
         
-        /* UPDATED TICKET STUB STYLE FOR QR CODE FIX */
         .ticket-stub {
             width: 30%; 
-            padding: 0.5rem 0.5rem; 
+            padding: 0.5rem; 
             gap: 0.5rem; 
             display: flex; 
             flex-direction: column;
@@ -51,7 +50,6 @@
             flex-shrink: 0; 
         }
 
-        /* NEW STYLE FOR RESPONSIVE QR CODE */
         #modalQrCodeCanvas {
             max-width: 100%;
             height: auto !important;
@@ -72,13 +70,18 @@
         .modal-scrollbar::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
         
         /* Chatbot styles */
-        #chat-window {
-            height: 70vh;
-            max-height: 500px;
-            transition: all 0.3s ease-in-out;
+        #chat-window { height: 70vh; max-height: 500px; transition: all 0.3s ease-in-out; }
+        .chat-message { animation: fadeIn 0.5s ease-in-out; }
+        
+        /* GUARANTEED FIX FOR CHAT INPUT STYLING */
+        #chat-input {
+            background-color: var(--dark-navy) !important;
+            color: white !important;
+            border: 1px solid var(--slate) !important;
         }
-        .chat-message {
-            animation: fadeIn 0.5s ease-in-out;
+        #chat-input::placeholder {
+            color: var(--slate) !important;
+            opacity: 1;
         }
     </style>
 </head>
@@ -100,7 +103,7 @@
                             </div>
                             <a href="https://share.google/fyhwKzGDq8k8t3Knn" target="_blank" class="flex items-center hover:text-white transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                                <span>SFS College</span>
+                                <span>SFS College, Nagpur</span>
                             </a>
                         </div>
                     </div>
@@ -186,10 +189,10 @@
                 </div>
                 <div class="w-full md:w-1/2">
                     <div class="space-y-8">
-                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Suyog Sontakke</h3><p class="text-blue-300">Event Lead</p></div><a href="https://www.instagram.com/suyog_sontakke/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
-                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Harsh Fulzele</h3><p class="text-blue-300">Marketing Head</p></div><a href="https://www.instagram.com/harshfulzele_09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
-                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Om Nimbalkar</h3><p class="text-blue-300">Operations Manager</p></div><a href="https://www.instagram.com/om_nimbalkar09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
-                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Ziyauddin Ansari</h3><p class="text-blue-300">Team</p></div><a href="https://www.instagram.com/ziya__x09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c-4.01.05-5.462.17-7.398 1.055S1.3 5.37 1.055 7.398C.17 9.336.05 10.79.05 14.8s.12 5.462 1.005 7.398c.245 1.71 1.06 2.89 2.77 3.135C5.836 26.23 7.29 26.35 11.3 26.35s5.462-.12 7.398-1.005c1.71-.245 2.89-1.06 3.135-2.77C26.23 20.764 26.35 19.31 26.35 15.3s-.12-5.462-1.005-7.398c-.245-1.71-1.06-2.89-2.77-3.135C20.764 2.17 19.31 2.05 15.3 2.05h-2.985zm0 2.25c4.022.05 5.32.165 7.185.925.985.455 1.635 1.105 2.09 2.09.76 1.865.875 3.165.925 7.185.05 4.022-.065 5.32-.825 7.185-.455.985-1.105-1.635-2.09-2.09-1.865-.76-3.165-.875-7.185-.925-4.022.05-5.32-.065-7.185-.825-.985-.455-1.635-1.105-2.09-2.09-.76-1.865-.875-3.165-.925-7.185-.05-4.022.065-5.32.825-7.185.455-.985 1.105-1.635 2.09-2.09 1.865-.76 3.165-.875 7.185-.925h2.985zM12 8.25a6 6 0 100 12 6 6 0 000-12zm0 2.25a3.75 3.75 0 110 7.5 3.75 3.75 0 010-7.5zM17.25 6a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Suyog Sontakke</h3><p class="text-blue-300">Event Lead</p></div><a href="https://www.instagram.com/suyog_sontakke/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Harsh Fulzele</h3><p class="text-blue-300">Marketing Head</p></div><a href="https://www.instagram.com/harshfulzele_09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Om Nimbalkar</h3><p class="text-blue-300">Operations Manager</p></div><a href="https://www.instagram.com/om_nimbalkar09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg></a></div>
+                        <div class="flex items-center gap-4"><div class="flex-grow"><h3 class="text-xl font-bold text-blue-50">Ziyauddin Ansari</h3><p class="text-blue-300">Team</p></div><a href="https://www.instagram.com/ziya__x09/" target="_blank" class="text-blue-300 hover:text-white transition-colors"><svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg></a></div>
                     </div>
                 </div>
             </div>
@@ -215,7 +218,7 @@
             <p class="mt-4 text-lg text-blue-300">Follow us on Instagram for the latest announcements, behind-the-scenes content, and future events.</p>
             <div class="mt-8">
                 <a href="https://www.instagram.com/ignite2025official/" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-4 px-8 rounded-lg hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-4 focus:ring-pink-500/50 transition-transform transform hover:scale-105 shadow-lg">
-                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z" clip-rule="evenodd" /></svg>
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                     <span>Follow @ignite2025official</span>
                 </a>
             </div>
@@ -223,7 +226,7 @@
     </section>
     
     <div id="notificationModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden">
-         <div class="bg-blue-900 border border-blue-700 rounded-2xl shadow-xl max-w-sm w-full p-8 text-center modal-fade-in" id="modalContent">
+        <div class="bg-blue-900 border border-blue-700 rounded-2xl shadow-xl max-w-sm w-full p-8 text-center modal-fade-in" id="modalContent">
             <div id="modalIcon"></div>
             <h3 id="modalTitle" class="text-2xl font-bold mt-4 text-blue-50"></h3>
             <p id="modalMessage" class="text-blue-200 mt-2"></p>
@@ -250,7 +253,7 @@
                     </div>
                 </div>
                 <div id="receipt-to-download" class="receipt-container rounded-lg mt-4">
-                     <div class="flex justify-between items-center border-b pb-4 mb-4 border-gray-200"><h2 class="text-2xl font-bold text-gray-800">Payment Receipt</h2><span class="text-sm text-gray-500" id="modalReceiptDate"></span></div>
+                    <div class="flex justify-between items-center border-b pb-4 mb-4 border-gray-200"><h2 class="text-2xl font-bold text-gray-800">Payment Receipt</h2><span class="text-sm text-gray-500" id="modalReceiptDate"></span></div>
                     <div class="space-y-4">
                         <div><p class="text-sm text-gray-500">Billed To:</p><p class="font-semibold" id="modalReceiptName"></p><p class="text-sm" id="modalReceiptEmail"></p></div>
                         <div><p class="text-sm text-gray-500">Payment ID:</p><p class="font-semibold text-sm" id="modalReceiptPaymentId"></p></div>
@@ -285,11 +288,10 @@
                     <p class="text-xs text-indigo-200">Your AI Helper for IGNITE 2025</p>
                 </div>
             </div>
-            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto modal-scrollbar flex flex-col gap-2">
-            </div>
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto modal-scrollbar flex flex-col gap-2"></div>
             <div class="p-4 border-t border-slate-700">
                 <form id="chat-form" class="flex gap-2">
-                    <input type="text" id="chat-input" class="flex-1 bg-blue-800 text-blue-50 placeholder-blue-400 px-4 py-2 border border-blue-700 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ask a question...">
+                    <input type="text" id="chat-input" class="flex-1 px-4 py-2 rounded-full focus:outline-none" placeholder="Ask a question...">
                     <button type="submit" class="bg-indigo-600 text-white w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.428A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
                     </button>
@@ -298,28 +300,24 @@
         </div>
     </div>
 
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- Configuration ---
-        const ORGANIZER_WHATSAPP_NUMBER = '919322408490';
-        const firebaseConfig = {
-         apiKey: "AIzaSyAPd9loQiNnouyKtxfwv-s7jcPzpZKmhys",
-         authDomain: "ignite-event-2025-nagpur.firebaseapp.com",
-         projectId: "ignite-event-2025-nagpur",
-         storageBucket: "ignite-event-2025-nagpur.appspot.com",
-         messagingSenderId: "480552824914",
-         appId: "1:480552824914:web:d67e8c9f208c67ac7fef8b",
-         measurementId: "G-RLPWDK8MR2"
-        };
-        
-        // --- App State ---
+        // --- Configuration & App State ---
         let db, auth;
         let currentAttendeeData = null;
-
+        const firebaseConfig = {
+          apiKey: "AIzaSyAPd9loQiNnouyKtxfwv-s7jcPzpZKmhys",
+          authDomain: "ignite-event-2025-nagpur.firebaseapp.com",
+          projectId: "ignite-event-2025-nagpur",
+          storageBucket: "ignite-event-2025-nagpur.appspot.com",
+          messagingSenderId: "480552824914",
+          appId: "1:480552824914:web:d67e8c9f208c67ac7fef8b",
+          measurementId: "G-RLPWDK8MR2"
+        };
+        
         // --- UI Elements ---
         const registrationForm = document.getElementById('registrationForm');
         const notificationModal = document.getElementById('notificationModal');
@@ -330,15 +328,13 @@
         const downloadReceiptBtn = document.getElementById('downloadReceiptBtn');
         const downloadPdfBtn = document.getElementById('downloadPdfBtn');
         const downloadJpgBtn = document.getElementById('downloadJpgBtn');
-
-        // --- Chatbot Elements ---
         const chatBubble = document.getElementById('chat-bubble');
         const chatWindow = document.getElementById('chat-window');
         const chatForm = document.getElementById('chat-form');
         const chatInput = document.getElementById('chat-input');
         const chatMessages = document.getElementById('chat-messages');
         const askHelpPopup = document.getElementById('ask-help-popup');
-
+        
         // --- UI Logic ---
         function showNotification(title, message, type = 'success') {
             const modalTitle = document.getElementById('modalTitle');
@@ -354,8 +350,6 @@
 
         function populateAndShowTicket(data) {
             currentAttendeeData = data;
-            
-            // Populate modal elements
             document.getElementById('modalTicketName').textContent = data.name;
             document.getElementById('modalTicketTypeDetail').textContent = data.ticketTypeFullText;
             document.getElementById('modalTicketIdStub').textContent = `ID: ${data.docId.substring(0, 8).toUpperCase()}`;
@@ -372,7 +366,6 @@
             const amountInRupees = `₹${(data.amount / 100).toFixed(2)}`;
             document.getElementById('modalReceiptAmount').textContent = amountInRupees;
             document.getElementById('modalReceiptTotal').textContent = amountInRupees;
-
             ticketModal.classList.remove('hidden');
         }
         
@@ -396,25 +389,20 @@
             const { jsPDF } = window.jspdf;
             const ticketElement = document.getElementById('ticket-to-download');
             const receiptElement = document.getElementById('receipt-to-download');
-            
             try {
                 const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: null });
+                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: '#fdfbf4' });
                 const ticketImgData = ticketCanvas.toDataURL('image/png');
                 const ticketImgProps = pdf.getImageProperties(ticketImgData);
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const ticketPdfHeight = (ticketImgProps.height * pdfWidth) / ticketImgProps.width;
                 pdf.addImage(ticketImgData, 'PNG', 10, 10, pdfWidth - 20, ticketPdfHeight);
-
                 pdf.addPage();
-                
-                const receiptCanvas = await html2canvas(receiptElement, { scale: 3, backgroundColor: null });
+                const receiptCanvas = await html2canvas(receiptElement, { scale: 3, backgroundColor: '#ffffff' });
                 const receiptImgData = receiptCanvas.toDataURL('image/png');
                 const receiptImgProps = pdf.getImageProperties(receiptImgData);
                 const receiptPdfHeight = (receiptImgProps.height * pdfWidth) / receiptImgProps.width;
                 pdf.addImage(receiptImgData, 'PNG', 10, 10, pdfWidth - 20, receiptPdfHeight);
-
                 pdf.save(`IGNITE-2025-Combined-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.pdf`);
             } catch (error) {
                 console.error("PDF Generation Error:", error);
@@ -422,44 +410,7 @@
             }
         }
         
-        async function downloadCombinedJpg() {
-            if (!currentAttendeeData) return;
-            const ticketElement = document.getElementById('ticket-to-download');
-            const receiptElement = document.getElementById('receipt-to-download');
-
-            try {
-                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: '#fdfbf4' });
-                const receiptCanvas = await html2canvas(receiptElement, { scale: 3, backgroundColor: '#ffffff' });
-
-                const combinedCanvas = document.createElement('canvas');
-                const padding = 30; 
-                
-                combinedCanvas.width = Math.max(ticketCanvas.width, receiptCanvas.width) + (padding * 2);
-                combinedCanvas.height = ticketCanvas.height + receiptCanvas.height + (padding * 3);
-
-                const ctx = combinedCanvas.getContext('2d');
-                ctx.fillStyle = '#0A192F';
-                ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
-
-                const ticketX = (combinedCanvas.width - ticketCanvas.width) / 2;
-                ctx.drawImage(ticketCanvas, ticketX, padding);
-                
-                const receiptX = (combinedCanvas.width - receiptCanvas.width) / 2;
-                ctx.drawImage(receiptCanvas, receiptX, ticketCanvas.height + (padding * 2));
-
-                const link = document.createElement('a');
-                link.download = `IGNITE-2025-Combined-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.jpg`;
-                link.href = combinedCanvas.toDataURL('image/jpeg', 0.9);
-                link.click();
-
-            } catch (error) {
-                console.error("JPG Generation Error:", error);
-                alert("Failed to generate JPG. Please check the console for errors.");
-            }
-        }
-
-
-        // --- Firebase Logic ---
+        // --- Firebase & Payment Logic ---
         async function initializeFirebase() {
              try {
                 const app = initializeApp(firebaseConfig);
@@ -474,152 +425,87 @@
 
         async function handlePaymentAndRegistration(e) {
             e.preventDefault();
-            if(!db) {
-                showNotification('Error', 'Database is not connected.', 'error');
-                return;
-            }
-
+            if(!db) { showNotification('Error', 'Database is not connected.', 'error'); return; }
             const form = e.target;
             const name = form.name.value.trim();
             const email = form.email.value.trim().toLowerCase();
             const mobile = form.mobile.value.trim();
             const ticketType = form.ticketType.value;
-            const ticketTypeElement = form.ticketType.options[form.ticketType.selectedIndex];
-            const ticketTypeFullText = ticketTypeElement.text;
-            
-            let amount = 79900; // Only Freshers Pass is available
-
+            const ticketTypeFullText = form.ticketType.options[form.ticketType.selectedIndex].text;
+            const amount = 79900;
             const options = {
-                "key": "rzp_test_RCthJa2Mqp2sit", // Replace with your Razorpay Key ID
-                "amount": amount,
-                "currency": "INR",
-                "name": "IGNITE 2025",
+                "key": "rzp_test_RCthJa2Mqp2sit",
+                "amount": amount, "currency": "INR", "name": "IGNITE 2025",
                 "description": `Ticket: ${ticketTypeFullText}`,
                 "handler": async function (response) {
                     try {
                         const attendeesCol = collection(db, 'attendees');
-                        const docRef = await addDoc(attendeesCol, {
-                            name, email, mobile, ticketType,
-                            paymentId: response.razorpay_payment_id,
-                            registeredAt: serverTimestamp() 
-                        });
-                        
+                        const docRef = await addDoc(attendeesCol, { name, email, mobile, ticketType, paymentId: response.razorpay_payment_id, registeredAt: serverTimestamp() });
                         form.reset();
-                        const attendeeData = {
-                            docId: docRef.id, name, email, mobile,
-                            ticketType, ticketTypeFullText,
-                            paymentId: response.razorpay_payment_id, amount
-                        };
-                        
+                        const attendeeData = { docId: docRef.id, name, email, mobile, ticketType, ticketTypeFullText, paymentId: response.razorpay_payment_id, amount };
                         populateAndShowTicket(attendeeData);
-                        
-                        // Automatically download the ticket as JPG
-                        setTimeout(() => {
-                           downloadElementAsJpg('ticket-to-download', `IGNITE-2025-Ticket-${name.replace(/\s+/g, '-')}.jpg`);
-                        }, 500);
-
+                        setTimeout(() => { downloadElementAsJpg('ticket-to-download', `IGNITE-2025-Ticket-${name.replace(/\s+/g, '-')}.jpg`); }, 500);
                     } catch (error) {
                         console.error("Error saving document: ", error);
                         showNotification('Registration Failed', `Payment successful, but failed to save data: ${error.message}`, 'error');
                     }
                 },
-                "prefill": { name, email, contact: mobile },
-                "theme": { "color": "#4338CA" }
+                "prefill": { name, email, contact: mobile }, "theme": { "color": "#4338CA" }
             };
-
             const rzp1 = new Razorpay(options);
             rzp1.open();
         }
         
         // --- CHATBOT LOGIC ---
-        const systemPrompt = `You are "Dolly," a friendly and helpful AI assistant for the event "IGNITE 2025". Your name is inspired by Dolly Chaiwala. Your purpose is to answer questions and resolve issues for users on the ticketing website in a fun, friendly, and authentic Nagpuri Hinglish style. You were created by Suyog Sontakke for the #IGNITE Team.
-
-        **Event Details:**
-        - **Name:** IGNITE 2025
-        - **Type:** Freshers Party
-        - **Date:** October 25, 2025
-        - **Location:** SFS College
-        - **Food:** Ticket includes wood-fired pizzas, burgers (veg & non-veg), and cosmic mocktails. (Hao, unlimited hai!)
-        - **Ticket Price:** Freshers Pass is ₹799.
-        - **Goal:** To give a warm and exciting welcome to the new students (fresher's ke liye ekdum bhari welcome).
-        - **Organizers & Socials:**
-          - **Event Instagram:** @ignite2025official
-          - **WhatsApp Group:** https://chat.whatsapp.com/BA8XJ9N3FC3DuoIFmhOMge
-          - **Team:** Suyog Sontakke (@suyog_sontakke), Harsh Fulzele (@harshfulzele_09), Om Nimbalkar (@om_nimbalkar09), Ziyauddin Ansari (@ziya__x09).
-
-        **Your Persona & Rules:**
-        - **Greeting:** Always start the first conversation with: "Hao bhau! Main Dolly Chaiwala, #IGNITE Team se. Suyog Sontakke ne banaya mereko. Batau, kya kaam hai?"
-        - **Language:** Use authentic Nagpuri slang and Hinglish. Phrases like "Hao," "bhari," "bhau," "kya bolti public," "tension nai lene ka," "ek number," etc.
-        - **Tone:** Friendly, enthusiastic, and helpful. Use emojis! 😎☕️🔥
-        - **Promote:** Mention the Instagram handle and WhatsApp group when relevant.
-        - **Unsatisfied Users:** If a user is not satisfied or you cannot answer their question, respond with: "Arre, tension nako lo. Aap direct humare team ko **ignite2025official@gmail.com** pe email kardo, woh log ekdum reply denge. Hao!"
-        - **Unrelated Questions:** If asked about something not related to the event, politely decline. "Sorry bhau, main sirf IGNITE 2025 event ke baare meinich bol sakti."
-        `;
-        
+        const systemPrompt = `You are "Dolly," a friendly and helpful AI assistant for the event "IGNITE 2025". Your name is inspired by Dolly Chaiwala. Your purpose is to answer questions for users in a fun, friendly, and authentic Nagpuri Hinglish style. You were created by Suyog Sontakke for the #IGNITE Team. Event Details: Name: IGNITE 2025, Type: Freshers Party, Date: October 25, 2025, Location: SFS College, Nagpur. Food: Unlimited pizzas, burgers (veg & non-veg), and mocktails. Ticket Price: ₹799. Socials: Instagram @ignite2025official, WhatsApp group: https://chat.whatsapp.com/BA8XJ9N3FC3DuoIFmhOMge. Team: Suyog Sontakke, Harsh Fulzele, Om Nimbalkar, Ziyauddin Ansari. Your Persona: Start with "Hao bhau! Main Dolly Chaiwala, #IGNITE Team se. Suyog Sontakke ne banaya mereko. Batau, kya kaam hai?". Use Nagpuri slang like "Hao," "bhari," "bhau," "ek number". Be friendly and use emojis 😎☕️🔥. If you cannot answer, refer them to ignite2025official@gmail.com. Only answer questions about the event.`;
         let chatHistory = []; 
 
         async function getDollyResponse(userMessage) {
-            const currentHistory = [...chatHistory, { role: "user", parts: [{ text: userMessage }] }];
-
             // ===================================================================
-            // IMPORTANT: PASTE YOUR API KEY FROM GOOGLE AI STUDIO IN THE LINE BELOW
-            // ===================================================================
-            const apiKey = "AIzaSyCJgWB6AQi3GCj4FnlJCfPvg4RBmLvH10o"; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+            // ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+            //  CRITICAL: REPLACE THE PLACEHOLDER TEXT BELOW WITH YOUR GOOGLE AI KEY
+            // ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+            const apiKey = "AIzaSyCJgWB6AQi3GCj4FnlJCfPvg4RBmLvH10o";
             
-            if (apiKey === "AIzaSyCJgWB6AQi3GCj4FnlJCfPvg4RBmLvH10o") {
+            if (apiKey === "PASTE_YOUR_GOOGLE_AI_API_KEY_HERE" || !apiKey) {
                 return "Technical Error: The API Key is missing. Please contact the site administrator.";
             }
 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
             const payload = {
-                contents: currentHistory,
-                system_instruction: {
-                    parts: [{ text: systemPrompt }]
-                }
+                contents: [...chatHistory, { role: "user", parts: [{ text: userMessage }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
             };
-
             try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API request failed with status ${response.status}`);
-                }
-
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
                 const result = await response.json();
-                const botMessage = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I'm having trouble connecting. Please try again.";
-                
+                const botMessage = result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I'm having trouble connecting.";
                 chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
                 chatHistory.push({ role: "model", parts: [{ text: botMessage }] });
-                
                 return botMessage;
-
             } catch (error) {
                 console.error("AI Chat Error:", error);
-                return "I'm experiencing a technical issue right now. Please try again in a moment.";
+                return "I'm experiencing a technical issue. Please try again in a moment.";
             }
         }
 
         function addMessageToChat(message, sender) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-message mb-3 p-3 rounded-lg max-w-[80%] ${sender === 'user' ? 'bg-indigo-600 text-white self-end rounded-br-none' : 'bg-slate-700 text-slate-200 self-start rounded-bl-none'}`;
-            messageDiv.innerHTML = message;
+            messageDiv.textContent = message;
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
+        // --- Event Listeners & App Initialization ---
         chatBubble.addEventListener('click', () => {
             chatWindow.classList.toggle('hidden');
             chatWindow.classList.toggle('flex');
             askHelpPopup.classList.toggle('hidden');
-
             if (!chatWindow.classList.contains('hidden') && chatMessages.children.length === 0) {
                  const greeting = "Hao bhau! Main Dolly Chaiwala, #IGNITE Team se. Suyog Sontakke ne banaya mereko. Batau, kya kaam hai?";
                  addMessageToChat(greeting, 'bot');
-                 // Also add greeting to history so the bot has context
                  chatHistory.push({ role: "model", parts: [{ text: greeting }] });
             }
         });
@@ -628,45 +514,25 @@
             e.preventDefault();
             const userMessage = chatInput.value.trim();
             if (!userMessage) return;
-
             addMessageToChat(userMessage, 'user');
             chatInput.value = '';
-
             const typingIndicator = document.createElement('div');
             typingIndicator.id = 'typing-indicator';
-            typingIndicator.className = 'chat-message mb-3 p-3 rounded-lg max-w-[80%] bg-slate-700 text-slate-400 self-start rounded-bl-none italic';
+            typingIndicator.className = 'chat-message mb-3 p-3 rounded-lg max-w-[80%] bg-slate-700 text-slate-400 self-start italic';
             typingIndicator.textContent = 'Dolly is typing...';
             chatMessages.appendChild(typingIndicator);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-
             const botResponse = await getDollyResponse(userMessage);
-            
             typingIndicator.remove();
             addMessageToChat(botResponse, 'bot');
         });
-
-
-        // --- Event Listeners ---
+        
         registrationForm.addEventListener('submit', handlePaymentAndRegistration);
         modalCloseBtn.addEventListener('click', () => notificationModal.classList.add('hidden'));
         closeTicketModalBtn.addEventListener('click', () => ticketModal.classList.add('hidden'));
-
-        downloadTicketBtn.addEventListener('click', () => {
-            if (currentAttendeeData) {
-                downloadElementAsJpg('ticket-to-download', `IGNITE-2025-Ticket-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.jpg`);
-            }
-        });
-        
-        downloadReceiptBtn.addEventListener('click', () => {
-            if (currentAttendeeData) {
-                downloadElementAsJpg('receipt-to-download', `IGNITE-2025-Receipt-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.jpg`);
-            }
-        });
-
+        downloadTicketBtn.addEventListener('click', () => { if (currentAttendeeData) { downloadElementAsJpg('ticket-to-download', `IGNITE-2025-Ticket-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.jpg`); } });
+        downloadReceiptBtn.addEventListener('click', () => { if (currentAttendeeData) { downloadElementAsJpg('receipt-to-download', `IGNITE-2025-Receipt-${(currentAttendeeData.name ?? 'Attendee').replace(/\s+/g, '-')}.jpg`); } });
         downloadPdfBtn.addEventListener('click', downloadCombinedPdf);
-        downloadJpgBtn.addEventListener('click', downloadCombinedJpg);
-        
-        // --- App Initialization ---
         document.addEventListener('DOMContentLoaded', initializeFirebase);
     </script>
 </body>
