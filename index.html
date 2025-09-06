@@ -36,10 +36,28 @@
             border: 1px solid #ddd; display: flex; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
         }
         .ticket-main { width: 70%; padding: 1.5rem; border-right: 2px dashed #ccc; text-align: left; }
+        
+        /* UPDATED TICKET STUB STYLE FOR QR CODE FIX */
         .ticket-stub {
-            width: 30%; padding: 0.5rem 1rem; gap: 0.5rem; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center; position: relative;
+            width: 30%; 
+            padding: 0.5rem 0.5rem; 
+            gap: 0.5rem; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            position: relative;
+            flex-shrink: 0; 
         }
+
+        /* NEW STYLE FOR RESPONSIVE QR CODE */
+        #modalQrCodeCanvas {
+            max-width: 100%;
+            height: auto !important;
+            display: block;
+        }
+
         .ticket-stub::before, .ticket-stub::after {
             content: ''; position: absolute; left: -12px; width: 20px; height: 20px;
             background: var(--dark-navy); border-radius: 50%; border: 1px solid #2C4A6B;
@@ -80,9 +98,9 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                 <span>October 25, 2025</span>
                             </div>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Mahure+Lawn+Nagpur" target="_blank" class="flex items-center hover:text-white transition-colors">
+                            <a href="https://share.google/fyhwKzGDq8k8t3Knn" target="_blank" class="flex items-center hover:text-white transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                                <span>Mahure Lawn, Nagpur</span>
+                                <span>SFS College</span>
                             </a>
                         </div>
                     </div>
@@ -178,14 +196,12 @@
         </div>
     </section>
 
-    <!-- NEW WHATSAPP SECTION -->
     <section id="whatsapp-group-cta" class="py-16 sm:py-20 border-t border-b border-blue-900">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Join The Community</h2>
             <p class="mt-4 text-lg text-blue-300">Get instant updates, ask questions, and connect with other attendees in our official WhatsApp group.</p>
             <div class="mt-8">
-                 <!-- IMPORTANT: Replace the href with your actual WhatsApp Group Invite Link -->
-                <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-green-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition-transform transform hover:scale-105 shadow-lg">
+                <a href="https://chat.whatsapp.com/BA8XJ9N3FC3DuoIFmhOMge" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-green-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition-transform transform hover:scale-105 shadow-lg">
                     <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.687-1.475L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.433-9.89-9.889-9.891-5.452 0-9.887 4.434-9.889 9.891.001 2.23 1.056 4.438 2.671 6.06L4.77 19.46l-2.525.792c.41-1.208 1.491-2.168 2.347-2.91l.832-.636zm-2.42-3.805c-.078-.13-.09-.282-.004-.424l.727-1.21c.177-.295.456-.492.758-.576l1.297-.335c.183-.047.341.026.438.182l.335.537c.11.177.125.395.038.592l-.529 1.018c-.087.177-.04.377.105.514l2.12 2.121c.137.144.336.192.514.105l1.018-.529c.197-.087.415-.072.592.038l.537.335c.157.098.23.255.182.438l-.335 1.297c-.084.302-.28.582-.576.758l-1.21.727c-.142.086-.294.074-.424-.004l-3.013-1.809-1.809-3.013z"/></svg>
                     <span>Join WhatsApp Group</span>
                 </a>
@@ -206,7 +222,6 @@
         </div>
     </section>
     
-    <!-- Notification Modal -->
     <div id="notificationModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden">
          <div class="bg-blue-900 border border-blue-700 rounded-2xl shadow-xl max-w-sm w-full p-8 text-center modal-fade-in" id="modalContent">
             <div id="modalIcon"></div>
@@ -216,10 +231,9 @@
         </div>
     </div>
 
-    <!-- NEW Ticket & Receipt Modal -->
     <div id="ticketModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden">
         <div class="w-full max-w-lg modal-fade-in relative">
-            <button id="closeTicketModalBtn" class="absolute -top-3 -right-3 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg hover:bg-red-700 transition z-10">&times;</button>
+            <button id="closeTicketModalBtn" class="absolute -top-3 -right-3 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg hover:bg-red-700 transition z-10">×</button>
             <div class="bg-dark-navy p-4 rounded-lg max-h-[90vh] overflow-y-auto modal-scrollbar">
                 <div id="ticket-to-download" class="movie-ticket rounded-lg overflow-hidden">
                     <div class="ticket-main">
@@ -258,7 +272,6 @@
         </div>
     </div>
     
-    <!-- AI Chatbot "Dolly" -->
     <div id="chat-widget" class="fixed bottom-5 right-5 z-40">
         <div id="ask-help-popup" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-indigo-600 text-white text-sm font-semibold py-1 px-3 rounded-full shadow-lg whitespace-nowrap">Ask Dolly</div>
         <button id="chat-bubble" class="w-20 h-20 bg-transparent rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
@@ -273,11 +286,10 @@
                 </div>
             </div>
             <div id="chat-messages" class="flex-1 p-4 overflow-y-auto modal-scrollbar flex flex-col gap-2">
-                <!-- Messages will appear here -->
             </div>
             <div class="p-4 border-t border-slate-700">
                 <form id="chat-form" class="flex gap-2">
-                    <input type="text" id="chat-input" class="flex-1 bg-dark-navy text-white placeholder-slate-400 px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ask a question...">
+                    <input type="text" id="chat-input" class="flex-1 bg-blue-800 text-blue-50 placeholder-blue-400 px-4 py-2 border border-blue-700 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Ask a question...">
                     <button type="submit" class="bg-indigo-600 text-white w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.428A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
                     </button>
@@ -295,13 +307,13 @@
         // --- Configuration ---
         const ORGANIZER_WHATSAPP_NUMBER = '919322408490';
         const firebaseConfig = {
-          apiKey: "AIzaSyAPd9loQiNnouyKtxfwv-s7jcPzpZKmhys",
-          authDomain: "ignite-event-2025-nagpur.firebaseapp.com",
-          projectId: "ignite-event-2025-nagpur",
-          storageBucket: "ignite-event-2025-nagpur.firebasestorage.app",
-          messagingSenderId: "480552824914",
-          appId: "1:480552824914:web:d67e8c9f208c67ac7fef8b",
-          measurementId: "G-RLPWDK8MR2"
+         apiKey: "AIzaSyAPd9loQiNnouyKtxfwv-s7jcPzpZKmhys",
+         authDomain: "ignite-event-2025-nagpur.firebaseapp.com",
+         projectId: "ignite-event-2025-nagpur",
+         storageBucket: "ignite-event-2025-nagpur.appspot.com",
+         messagingSenderId: "480552824914",
+         appId: "1:480552824914:web:d67e8c9f208c67ac7fef8b",
+         measurementId: "G-RLPWDK8MR2"
         };
         
         // --- App State ---
@@ -526,13 +538,13 @@
         - **Name:** IGNITE 2025
         - **Type:** Freshers Party
         - **Date:** October 25, 2025
-        - **Location:** Mahure Lawn, Nagpur
+        - **Location:** SFS College
         - **Food:** Ticket includes wood-fired pizzas, burgers (veg & non-veg), and cosmic mocktails. (Hao, unlimited hai!)
         - **Ticket Price:** Freshers Pass is ₹799.
         - **Goal:** To give a warm and exciting welcome to the new students (fresher's ke liye ekdum bhari welcome).
         - **Organizers & Socials:**
           - **Event Instagram:** @ignite2025official
-          - **WhatsApp Group:** https://chat.whatsapp.com/YOUR_GROUP_INVITE_LINK
+          - **WhatsApp Group:** https://chat.whatsapp.com/BA8XJ9N3FC3DuoIFmhOMge
           - **Team:** Suyog Sontakke (@suyog_sontakke), Harsh Fulzele (@harshfulzele_09), Om Nimbalkar (@om_nimbalkar09), Ziyauddin Ansari (@ziya__x09).
 
         **Your Persona & Rules:**
@@ -549,12 +561,19 @@
         async function getDollyResponse(userMessage) {
             const currentHistory = [...chatHistory, { role: "user", parts: [{ text: userMessage }] }];
 
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            // ===================================================================
+            // IMPORTANT: PASTE YOUR API KEY FROM GOOGLE AI STUDIO IN THE LINE BELOW
+            // ===================================================================
+            const apiKey = "AIzaSyCJgWB6AQi3GCj4FnlJCfPvg4RBmLvH10o"; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
             
+            if (apiKey === "AIzaSyCJgWB6AQi3GCj4FnlJCfPvg4RBmLvH10o") {
+                return "Technical Error: The API Key is missing. Please contact the site administrator.";
+            }
+
             const payload = {
                 contents: currentHistory,
-                systemInstruction: {
+                system_instruction: {
                     parts: [{ text: systemPrompt }]
                 }
             };
