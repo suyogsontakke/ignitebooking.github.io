@@ -15,14 +15,19 @@
     
     <style>
         :root {
-            --dark-navy: #0A192F;
-            --light-navy: #102A43;
-            --slate: #8892b0;
+            /* Updated Color Palette */
+            --bg-dark: #111827;      /* Dark Gray */
+            --bg-light: #1F2937;     /* Lighter Gray */
+            --primary-red: #EF4444;     /* Vibrant Red */
+            --secondary-orange: #F97316; /* Warm Orange */
+            --text-primary: #F9FAFB;   /* Light Gray for Text */
+            --text-secondary: #D1D5DB; /* Dimmer Gray for Text */
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--dark-navy);
-            background-image: linear-gradient(135deg, var(--light-navy) 0%, var(--dark-navy) 100%);
+            background-color: var(--bg-dark);
+            background-image: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-dark) 100%);
+            color: var(--text-primary);
         }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .modal-fade-in { animation: fadeIn 0.3s ease-out forwards; }
@@ -30,13 +35,21 @@
         @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .form-slide-in { animation: slideInUp 0.5s ease-out forwards; }
         
-        /* Ticket Styles */
+        /* --- UPDATED TICKET STYLES --- */
         .movie-ticket {
-            font-family: 'Bebas Neue', cursive; background-color: #fdfbf4; color: #333;
-            border: 1px solid #ddd; display: flex; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+            font-family: 'Bebas Neue', cursive; 
+            background-color: #1F2937; /* Dark background for ticket */
+            color: #F9FAFB;            /* Light text color */
+            border: 1px solid #374151;
+            display: flex; 
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
-        .ticket-main { width: 70%; padding: 1.5rem; border-right: 2px dashed #ccc; text-align: left; }
-        
+        .ticket-main { 
+            width: 70%; 
+            padding: 1.5rem; 
+            border-right: 2px dashed #4B5563; 
+            text-align: left; 
+        }
         .ticket-stub {
             width: 30%; 
             padding: 0.5rem; 
@@ -48,60 +61,71 @@
             text-align: center; 
             position: relative;
             flex-shrink: 0; 
+            background-color: #374151; /* Slightly different bg for stub */
         }
-
         #modalQrCodeCanvas {
             max-width: 100%;
             height: auto !important;
             display: block;
+            background-color: white; /* QR Code needs a white background to be scannable */
+            padding: 5px;
+            border-radius: 4px;
         }
-
         .ticket-stub::before, .ticket-stub::after {
-            content: ''; position: absolute; left: -12px; width: 20px; height: 20px;
-            background: var(--dark-navy); border-radius: 50%; border: 1px solid #2C4A6B;
+            content: ''; 
+            position: absolute; 
+            left: -12px; 
+            width: 20px; 
+            height: 20px;
+            background: var(--bg-dark); /* Match main page background for punch-hole effect */
+            border-radius: 50%;
         }
-        .ticket-stub::before { top: -11px; } .ticket-stub::after { bottom: -11px; }
+        .ticket-stub::before { top: -11px; } 
+        .ticket-stub::after { bottom: -11px; }
+
         .receipt-container {
-            font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1f2937;
-            padding: 1.5rem; margin-top: 1rem; border: 1px solid #e5e7eb;
+            font-family: 'Inter', sans-serif; 
+            background-color: #ffffff; 
+            color: #1f2937;
+            padding: 1.5rem; 
+            margin-top: 1rem; 
+            border: 1px solid #e5e7eb;
         }
         .modal-scrollbar::-webkit-scrollbar { width: 8px; }
-        .modal-scrollbar::-webkit-scrollbar-track { background: var(--light-navy); border-radius: 10px; }
-        .modal-scrollbar::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
+        .modal-scrollbar::-webkit-scrollbar-track { background: var(--bg-light); border-radius: 10px; }
+        .modal-scrollbar::-webkit-scrollbar-thumb { background: var(--primary-red); border-radius: 10px; }
         
-        /* Chatbot styles */
-        #chat-window { height: 70vh; max-height: 500px; transition: all 0.3s ease-in-out; }
+        #chat-window { height: 70vh; max-height: 500px; }
         .chat-message { animation: fadeIn 0.5s ease-in-out; }
         
-        /* GUARANTEED FIX FOR CHAT INPUT STYLING */
         #chat-input {
-            background-color: var(--dark-navy) !important;
+            background-color: var(--bg-dark) !important;
             color: white !important;
-            border: 1px solid var(--slate) !important;
+            border: 1px solid var(--text-secondary) !important;
         }
         #chat-input::placeholder {
-            color: var(--slate) !important;
+            color: var(--text-secondary) !important;
             opacity: 1;
         }
     </style>
 </head>
-<body>
+<body class="text-gray-100">
     <main class="min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-5xl mx-auto">
-            <div class="bg-blue-950/70 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+            <div class="bg-gray-900/70 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
                 
-                <div class="w-full md:w-1/3 bg-gradient-to-br from-indigo-700 to-blue-800 p-6 sm:p-8 text-white flex flex-col justify-center">
+                <div class="w-full md:w-1/3 bg-gradient-to-br from-red-600 to-orange-500 p-6 sm:p-8 text-white flex flex-col justify-center">
                     <div class="py-8">
                         <h1 class="text-4xl sm:text-5xl font-bold mb-4" style="font-family: 'Bebas Neue', cursive;">IGNITE 2025</h1>
-                        <p class="text-blue-200 mb-8">
+                        <p class="text-orange-100 mb-8">
                             🚀 Igniting the vibe – Freshers Ignite 2025 🔥 The ultimate welcome to the new era.
                         </p>
-                        <div class="space-y-3 text-blue-100">
+                        <div class="space-y-3 text-red-50">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                 <span>October 25, 2025</span>
                             </div>
-                            <a href="https://maps.app.goo.gl/U7bEZDrvVDupBcsJA" target="_blank" class="flex items-center hover:text-white transition-colors">
+                            <a href="#" target="_blank" class="flex items-center hover:text-white transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                                 <span>Raasta Nagpur</span>
                             </a>
@@ -111,28 +135,28 @@
 
                 <div class="w-full md:w-2/3 p-6 sm:p-8 flex items-center justify-center">
                     <div id="userView" class="w-full max-w-md py-8">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-blue-50 mb-2">Register Now</h2>
-                        <p class="text-blue-200 mb-6">Your unforgettable experience is just a few clicks away.</p>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-50 mb-2">Register Now</h2>
+                        <p class="text-gray-300 mb-6">Your unforgettable experience is just a few clicks away.</p>
                         <form id="registrationForm" class="space-y-5">
                             <div class="form-slide-in" style="animation-delay: 100ms;">
-                                <label for="name" class="block text-sm font-medium text-blue-200">Full Name</label>
-                                <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 bg-blue-800 text-blue-50 border border-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                <label for="name" class="block text-sm font-medium text-gray-300">Full Name</label>
+                                <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 bg-gray-800 text-gray-50 border border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition">
                             </div>
                             <div class="form-slide-in" style="animation-delay: 200ms;">
-                                <label for="email" class="block text-sm font-medium text-blue-200">Email Address</label>
-                                <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 bg-blue-800 text-blue-50 border border-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                <label for="email" class="block text-sm font-medium text-gray-300">Email Address</label>
+                                <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 bg-gray-800 text-gray-50 border border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition">
                             </div>
                             <div class="form-slide-in" style="animation-delay: 300ms;">
-                                <label for="mobile" class="block text-sm font-medium text-blue-200">Mobile Number</label>
-                                <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" maxlength="10" title="Please enter a valid 10-digit mobile number." class="mt-1 block w-full px-4 py-3 bg-blue-800 text-blue-50 border border-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                <label for="mobile" class="block text-sm font-medium text-gray-300">Mobile Number</label>
+                                <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" maxlength="10" title="Please enter a valid 10-digit mobile number." class="mt-1 block w-full px-4 py-3 bg-gray-800 text-gray-50 border border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition">
                             </div>
                             <div class="form-slide-in hidden" style="animation-delay: 400ms;">
-                                <label for="ticketType" class="block text-sm font-medium text-blue-200">Ticket Type</label>
-                                <select id="ticketType" name="ticketType" required class="mt-1 block w-full px-4 py-3 bg-blue-800 text-blue-50 border border-blue-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                                <label for="ticketType" class="block text-sm font-medium text-gray-300">Ticket Type</label>
+                                <select id="ticketType" name="ticketType" required class="mt-1 block w-full px-4 py-3 bg-gray-800 text-gray-50 border border-gray-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition">
                                     <option value="General Admission">Freshers Pass (₹799)</option>
                                 </select>
                             </div>
-                            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/50 transition-transform transform hover:scale-105 shadow-lg form-slide-in" style="animation-delay: 500ms;">
+                            <button type="submit" class="w-full bg-red-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500/50 transition-transform transform hover:scale-105 shadow-lg form-slide-in" style="animation-delay: 500ms;">
                                 Proceed to Pay
                             </button>
                         </form>
@@ -145,29 +169,29 @@
     <section id="food-menu" class="py-16 sm:py-20">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Feast Your Eyes: The Ignite Menu</h2>
-                <p class="mt-4 text-lg text-blue-300">Your ticket includes a selection of amazing food & drinks to keep the energy high!</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Feast Your Eyes: The Ignite Menu</h2>
+                <p class="mt-4 text-lg text-gray-300">Your ticket includes a selection of amazing food & drinks to keep the energy high!</p>
             </div>
             <div class="mt-12 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&auto=format&fit=crop" alt="Pizza">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-blue-50">Blazing Pizzas</h3>
-                        <p class="mt-2 text-blue-300">Wood-fired pizzas with a variety of fresh toppings to choose from.</p>
+                        <h3 class="text-xl font-bold text-gray-50">Blazing Pizzas</h3>
+                        <p class="mt-2 text-gray-300">Wood-fired pizzas with a variety of fresh toppings to choose from.</p>
                     </div>
                 </div>
-                <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=500&auto=format&fit=crop" alt="Burgers">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-blue-50">Titan Burgers</h3>
-                        <p class="mt-2 text-blue-300">Juicy, oversized burgers, both veg and non-veg, grilled to perfection.</p>
+                        <h3 class="text-xl font-bold text-gray-50">Titan Burgers</h3>
+                        <p class="mt-2 text-gray-300">Juicy, oversized burgers, both veg and non-veg, grilled to perfection.</p>
                     </div>
                 </div>
-                <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
                     <img class="w-full h-48 object-cover" src="https://my.vanderbilthealth.com/wp-content/uploads/2019/12/Refresh_Mocktails_Hero.jpg" alt="Mocktails">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-blue-50">Cosmic Mocktails</h3>
-                        <p class="mt-2 text-blue-300">Refreshing, non-alcoholic drinks in a rainbow of electrifying flavours.</p>
+                        <h3 class="text-xl font-bold text-gray-50">Cosmic Mocktails</h3>
+                        <p class="mt-2 text-gray-300">Refreshing, non-alcoholic drinks in a rainbow of electrifying flavours.</p>
                     </div>
                 </div>
             </div>
@@ -177,34 +201,34 @@
     <section id="team-section" class="py-16 sm:py-20">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Meet The #IGNITE Team</h2>
-                <p class="mt-4 text-lg text-blue-300">The minds behind the magic. Connect with us!</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Meet The #IGNITE Team</h2>
+                <p class="mt-4 text-lg text-gray-300">The minds behind the magic. Connect with us!</p>
             </div>
     
             <div class="mt-16">
-                <h3 class="text-2xl sm:text-3xl font-bold text-indigo-400 text-center mb-8" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">#IGNITE Leads</h3>
+                <h3 class="text-2xl sm:text-3xl font-bold text-red-400 text-center mb-8" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">#IGNITE Leads</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                    <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
+                    <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
                         <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.ibb.co/HLvnFVBf/suyog-sontakke-1719588799-3400479769244299769-9163546733-jpg.jpg" alt="Suyog Sontakke">
                         <div class="p-6 flex flex-col flex-grow justify-between">
                             <div>
-                                <h4 class="text-xl font-bold text-blue-50">Suyog Sontakke</h4>
-                                <p class="mt-1 text-indigo-300">Event Lead</p>
+                                <h4 class="text-xl font-bold text-gray-50">Suyog Sontakke</h4>
+                                <p class="mt-1 text-red-300">Event Lead</p>
                             </div>
-                            <a href="https://www.instagram.com/suyog_sontakke/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-blue-300 hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/suyog_sontakke/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors">
                                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                                 <span>suyog_sontakke</span>
                             </a>
                         </div>
                     </div>
-                    <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
+                    <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
                         <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.ibb.co/LdhGyfk0/aryan-09-1750554956-3660242724319945352-4295258094.jpg" alt="Aryan Belkhode">
                         <div class="p-6 flex flex-col flex-grow justify-between">
-                             <div>
-                                <h4 class="text-xl font-bold text-blue-50">Aryan Belkhode</h4>
-                                <p class="mt-1 text-indigo-300">Event Lead</p>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-50">Aryan Belkhode</h4>
+                                <p class="mt-1 text-red-300">Event Lead</p>
                             </div>
-                            <a href="https://www.instagram.com/_aryan__09_/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-blue-300 hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/_aryan__09_/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors">
                                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                                 <span>_aryan__09_</span>
                             </a>
@@ -214,84 +238,86 @@
             </div>
     
             <div class="mt-16">
-                 <h3 class="text-2xl sm:text-3xl font-bold text-indigo-400 text-center mb-8" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">#IGNITE Team</h3>
+                 <h3 class="text-2xl sm:text-3xl font-bold text-red-400 text-center mb-8" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">#IGNITE Team</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
-                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.ibb.co/DfmqscVP/Whats-App-Image-2025-09-09-at-8-09-05-PM-2.jpg" alt="Harsh Fulzele">
+                    <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
+                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.postimg.cc/jS8QYsRb/image.png" alt="Harsh Fulzele">
                         <div class="p-6 flex flex-col flex-grow justify-between">
                             <div>
-                                <h4 class="text-xl font-bold text-blue-50">Harsh Fulzele</h4>
-                                <p class="mt-1 text-indigo-300">Team Member</p>
+                                <h4 class="text-xl font-bold text-gray-50">Harsh Fulzele</h4>
+                                <p class="mt-1 text-red-300">Team Member</p>
                             </div>
-                            <a href="https://www.instagram.com/harshfulzele_09/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-blue-300 hover:text-white transition-colors">
-                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
+                            <a href="https://www.instagram.com/harshfulzele_09/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors">
+                                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                                 <span>harshfulzele_09</span>
                             </a>
                         </div>
                     </div>
-                    <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
-                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.ibb.co/KjYzpWqh/Whats-App-Image-2025-09-09-at-8-09-49-PM.jpg" alt="Ziyauddin Ansari">
+                    <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
+                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.postimg.cc/L4B9s5wj/ziya-x09-1743326564-3599606579433339138-31588971997.webp" alt="Ziyauddin Ansari">
                         <div class="p-6 flex flex-col flex-grow justify-between">
                             <div>
-                                <h4 class="text-xl font-bold text-blue-50">Ziyauddin Ansari</h4>
-                                <p class="mt-1 text-indigo-300">Team Member</p>
+                                <h4 class="text-xl font-bold text-gray-50">Ziyauddin Ansari</h4>
+                                <p class="mt-1 text-red-300">Team Member</p>
                             </div>
-                            <a href="https://www.instagram.com/ziya__x09/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-blue-300 hover:text-white transition-colors">
-                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
+                            <a href="https://www.instagram.com/ziya__x09/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors">
+                                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                                 <span>ziya__x09</span>
                             </a>
                         </div>
                     </div>
-                    <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
+                    <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
                         <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.ibb.co/zVdHCdBR/aayush-16-1752943160-3680276432611206783-44661590586.webp" alt="Ayush Peter">
                         <div class="p-6 flex flex-col flex-grow justify-between">
                             <div>
-                                <h4 class="text-xl font-bold text-blue-50">Ayush Peter</h4>
-                                <p class="mt-1 text-indigo-300">Team Member</p>
+                                <h4 class="text-xl font-bold text-gray-50">Ayush Peter</h4>
+                                <p class="mt-1 text-red-300">Team Member</p>
                             </div>
-                            <a href="https://www.instagram.com/aayush__16__/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-blue-300 hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/aayush__16__/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors">
                                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                                 <span>aayush__16__</span>
                             </a>
                         </div>
                     </div>
-                    <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
-                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.ibb.co/KjPYF2MW/Whats-App-Image-2025-09-09-at-8-09-04-PM.jpg" alt="Om Nimbalkar">
+                    <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
+                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.postimg.cc/8Ch3bJhH/image.png" alt="Om Nimbalkar">
                         <div class="p-6 flex flex-col flex-grow justify-between">
                             <div>
-                                <h4 class="text-xl font-bold text-blue-50">Om Nimbalkar</h4>
-                                <p class="mt-1 text-indigo-300">Team Member</p>
+                                <h4 class="text-xl font-bold text-gray-50">Om Nimbalkar</h4>
+                                <p class="mt-1 text-red-300">Team Member</p>
                             </div>
-                            <a href="https://www.instagram.com/om_nimbalkar09/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-blue-300 hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/om_nimbalkar09/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors">
                                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                                 <span>om_nimbalkar09</span>
                             </a>
                         </div>
                     </div>
-                    <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
-                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.ibb.co/0p9DH2CN/Whats-App-Image-2025-09-09-at-8-09-11-PM.jpg" alt="Hitesh Jambhulkar">
+                    <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
+                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.postimg.cc/YCjLgQB5/the-hitesh-jambhulkar-1743256752-3599020955046090278-41313794862.webp" alt="Hitesh Jambhulkar">
                         <div class="p-6 flex flex-col flex-grow justify-between">
                             <div>
-                                <h4 class="text-xl font-bold text-blue-50">Hitesh Jambhulkar</h4>
-                                <p class="mt-1 text-indigo-300">Team Member</p>
+                                <h4 class="text-xl font-bold text-gray-50">Hitesh Jambhulkar</h4>
+                                <p class="mt-1 text-red-300">Team Member</p>
                             </div>
-                            <a href="https://www.instagram.com/the_hitesh_jambhulkar/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-blue-300 hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/the_hitesh_jambhulkar/" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors">
                                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                                 <span>the_hitesh_jambhulkar</span>
                             </a>
                         </div>
                     </div>
-                    <div class="bg-blue-950/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
-                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.ibb.co/Rp7qhJV1/Whats-App-Image-2025-09-09-at-8-09-05-PM.jpg" alt="Shivam Dharvaiya">
+                    <div class="bg-gray-800/50 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 text-center flex flex-col">
+                        <img class="w-full aspect-[4/5] object-cover object-top" src="https://i.postimg.cc/65cpMqhB/shivaay-07-1751214502-3665775396655478070-44322486977.webp" alt="Shivam Dharvaiya">
                         <div class="p-6 flex flex-col flex-grow justify-between">
                             <div>
-                                <h4 class="text-xl font-bold text-blue-50">Shivam Dharvaiya</h4>
-                                <p class="mt-1 text-indigo-300">Team Member</p>
+                                <h4 class="text-xl font-bold text-gray-50">Shivam Dharvaiya</h4>
+                                <p class="mt-1 text-red-300">Team Member</p>
                             </div>
-                            <!-- <a href="#" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-blue-300 hover:text-white transition-colors">
+                            <a href="https://www.instagram.com/shivaay___07_" target="_blank" class="mt-4 inline-flex items-center justify-center gap-2 text-gray-300 hover:text-white transition-colors">
                                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
-                                <span>Insta Handle</span>
-                            </a> -->
+                                <span>shivaay___07_</span>
+                            </a>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -299,15 +325,13 @@
         </div>
     </section>
 
-    <section id="whatsapp-group-cta" class="py-16 sm:py-20 border-t border-b border-blue-900">
+    <section id="whatsapp-group-cta" class="py-16 sm:py-20 border-t border-b border-gray-800">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Join The Community</h2>
-            <p class="mt-4 text-lg text-blue-300">Get instant updates, ask questions, and connect with other attendees in our official WhatsApp group.</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Join The Community</h2>
+            <p class="mt-4 text-lg text-gray-300">Get instant updates, ask questions, and connect with other attendees in our official WhatsApp group.</p>
             <div class="mt-8">
                 <a href="https://chat.whatsapp.com/BA8XJ9N3FC3DuoIFmhOMge" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-green-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition-transform transform hover:scale-105 shadow-lg">
-                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM12.04 20.12c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31c-.82-1.31-1.26-2.82-1.26-4.38 0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42s2.42 3.62 2.42 5.82c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.2c-.25-.12-1.47-.72-1.7-.82s-.39-.12-.56.12c-.17.25-.64.82-.78.98s-.28.18-.53.06c-.25-.12-1.05-.39-2-1.23s-1.44-1.89-1.68-2.21c-.24-.32-.01-.5.11-.62s.25-.28.37-.42c.12-.14.16-.25.25-.41s.04-.3-.02-.42c-.06-.12-.56-1.34-.76-1.84s-.4-.42-.56-.42h-.5c-.17 0-.45.06-.68.31s-.86.84-.86 2.05c0 1.21.88 2.37 1 2.53s1.74 2.65 4.22 3.72c.59.26 1.05.41 1.41.52.59.18 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18s.21-1.07.15-1.18c-.07-.12-.25-.18-.5-.3z"/>
-                    </svg>
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM12.04 20.12c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31c-.82-1.31-1.26-2.82-1.26-4.38 0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42s2.42 3.62 2.42 5.82c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.2c-.25-.12-1.47-.72-1.7-.82s-.39-.12-.56.12c-.17.25-.64.82-.78.98s-.28.18-.53.06c-.25-.12-1.05-.39-2-1.23s-1.44-1.89-1.68-2.21c-.24-.32-.01-.5.11-.62s.25-.28.37-.42c.12-.14.16-.25.25-.41s.04-.3-.02-.42c-.06-.12-.56-1.34-.76-1.84s-.4-.42-.56-.42h-.5c-.17 0-.45.06-.68.31s-.86.84-.86 2.05c0 1.21.88 2.37 1 2.53s1.74 2.65 4.22 3.72c.59.26 1.05.41 1.41.52.59.18 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18s.21-1.07.15-1.18c-.07-.12-.25-.18-.5-.3z"/></svg>
                     <span>Join WhatsApp Group</span>
                 </a>
             </div>
@@ -316,10 +340,10 @@
 
     <section id="instagram-cta" class="py-16 sm:py-20">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-blue-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Get Updates, Stay Connected!</h2>
-            <p class="mt-4 text-lg text-blue-300">Follow us on Instagram for the latest announcements, behind-the-scenes content, and future events.</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-100" style="font-family: 'Bebas Neue', cursive; letter-spacing: 1px;">Get Updates, Stay Connected!</h2>
+            <p class="mt-4 text-lg text-gray-300">Follow us on Instagram for the latest announcements, behind-the-scenes content, and future events.</p>
             <div class="mt-8">
-                <a href="https://www.instagram.com/ignite2025official/" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-4 px-8 rounded-lg hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-4 focus:ring-pink-500/50 transition-transform transform hover:scale-105 shadow-lg">
+                <a href="https://www.instagram.com/ignite2025official/" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold py-4 px-8 rounded-lg hover:from-red-600 hover:to-orange-600 focus:outline-none focus:ring-4 focus:ring-red-500/50 transition-transform transform hover:scale-105 shadow-lg">
                     <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.441c-3.111 0-3.483.011-4.691.068-2.61.121-3.832 1.343-3.953 3.953-.057 1.208-.067 1.578-.067 4.691s.01 3.483.067 4.691c.121 2.61 1.343 3.832 3.953 3.953 1.208.057 1.578.067 4.691.067s3.483-.01 4.691-.067c2.61-.121 3.832-1.343 3.953-3.953.057-1.208.067-1.578.067-4.691s-.01-3.483-.067-4.691c-.121-2.61-1.343-3.832-3.953-3.953-1.208-.057-1.578-.067-4.691-.067zM12 8.118c-2.141 0-3.882 1.741-3.882 3.882s1.741 3.882 3.882 3.882 3.882-1.741 3.882-3.882S14.141 8.118 12 8.118zm0 6.363c-1.37 0-2.482-1.112-2.482-2.482s1.112-2.482 2.482-2.482 2.482 1.112 2.482 2.482-1.112 2.482-2.482 2.482zm6.262-6.953c-.768 0-1.39.622-1.39 1.39s.622 1.39 1.39 1.39 1.39-.622 1.39-1.39-.622-1.39-1.39-1.39z"/></svg>
                     <span>Follow @ignite2025official</span>
                 </a>
@@ -328,28 +352,28 @@
     </section>
     
     <div id="notificationModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-blue-900 border border-blue-700 rounded-2xl shadow-xl max-w-sm w-full p-8 text-center modal-fade-in" id="modalContent">
+        <div class="bg-gray-900 border border-gray-700 rounded-2xl shadow-xl max-w-sm w-full p-8 text-center modal-fade-in" id="modalContent">
             <div id="modalIcon"></div>
-            <h3 id="modalTitle" class="text-2xl font-bold mt-4 text-blue-50"></h3>
-            <p id="modalMessage" class="text-blue-200 mt-2"></p>
-            <button id="modalCloseBtn" class="mt-6 bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-900 focus:ring-indigo-500">Close</button>
+            <h3 id="modalTitle" class="text-2xl font-bold mt-4 text-gray-50"></h3>
+            <p id="modalMessage" class="text-gray-200 mt-2"></p>
+            <button id="modalCloseBtn" class="mt-6 bg-red-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-red-500">Close</button>
         </div>
     </div>
 
     <div id="ticketModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden">
         <div class="w-full max-w-lg modal-fade-in relative">
             <button id="closeTicketModalBtn" class="absolute -top-3 -right-3 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center shadow-lg hover:bg-red-700 transition z-10">×</button>
-            <div class="bg-dark-navy p-4 rounded-lg max-h-[90vh] overflow-y-auto modal-scrollbar">
+            <div class="bg-bg-dark p-4 rounded-lg max-h-[90vh] overflow-y-auto modal-scrollbar">
                 <div id="ticket-to-download" class="movie-ticket rounded-lg overflow-hidden">
                     <div class="ticket-main">
-                        <h2 class="text-4xl text-indigo-600">IGNITE 2025</h2>
-                        <p class="text-lg tracking-widest text-gray-500">ADMIT ONE</p>
-                        <div class="my-4"><p class="text-sm text-gray-500">ATTENDEE</p><p id="modalTicketName" class="text-3xl"></p></div>
-                        <div class="my-4"><p class="text-sm text-gray-500">TICKET TYPE</p><p id="modalTicketTypeDetail" class="text-xl"></p></div>
-                        <p class="text-xs text-gray-400">This ticket is non-transferable.</p>
+                        <h2 class="text-4xl text-red-500">IGNITE 2025</h2>
+                        <p class="text-lg tracking-widest text-gray-400">ADMIT ONE</p>
+                        <div class="my-4"><p class="text-sm text-gray-400">ATTENDEE</p><p id="modalTicketName" class="text-3xl text-white"></p></div>
+                        <div class="my-4"><p class="text-sm text-gray-400">TICKET TYPE</p><p id="modalTicketTypeDetail" class="text-xl text-white"></p></div>
+                        <p class="text-xs text-gray-500">This ticket is non-transferable.</p>
                     </div>
                     <div class="ticket-stub">
-                        <p class="text-xl font-bold text-gray-700">#IGNITE2025</p>
+                        <p class="text-xl font-bold text-gray-200">#IGNITE2025</p>
                         <canvas id="modalQrCodeCanvas"></canvas>
                         <p id="modalTicketIdStub" class="text-xs text-gray-400"></p>
                     </div>
@@ -367,34 +391,33 @@
                         <div class="text-center pt-4"><p class="text-2xl font-bold text-green-600 border-4 border-green-600 rounded-lg p-2 inline-block -rotate-12">PAID</p></div>
                     </div>
                 </div>
-                 <div class="bg-light-navy p-3 mt-4 rounded-lg flex flex-wrap gap-2 justify-center">
-                    <button id="downloadTicketBtn" class="flex-grow bg-indigo-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-indigo-700 transition">Download Ticket (JPG)</button>
-                    <button id="downloadReceiptBtn" class="flex-grow bg-slate-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-slate-700 transition">Download Receipt (JPG)</button>
-                    <button id="downloadPdfBtn" class="w-full bg-red-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-red-700 transition mt-2">Download Both (PDF)</button>
-                    <button id="downloadJpgBtn" class="w-full bg-green-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-green-700 transition mt-2">Download Both (JPG)</button>
-                </div>
+                 <div class="bg-bg-light p-3 mt-4 rounded-lg flex flex-wrap gap-2 justify-center">
+                    <button id="downloadTicketBtn" class="flex-grow bg-red-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-red-700 transition">Download Ticket (JPG)</button>
+                    <button id="downloadReceiptBtn" class="flex-grow bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-gray-700 transition">Download Receipt (JPG)</button>
+                    <button id="downloadPdfBtn" class="w-full bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-orange-700 transition mt-2">Download Both (PDF)</button>
+                 </div>
             </div>
         </div>
     </div>
     
     <div id="chat-widget" class="fixed bottom-5 right-5 z-40">
-        <div id="ask-help-popup" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-indigo-600 text-white text-sm font-semibold py-1 px-3 rounded-full shadow-lg whitespace-nowrap">Ask Dolly</div>
+        <div id="ask-help-popup" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-red-600 text-white text-sm font-semibold py-1 px-3 rounded-full shadow-lg whitespace-nowrap">Ask Dolly</div>
         <button id="chat-bubble" class="w-20 h-20 bg-transparent rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
             <img id="chat-logo" src="https://i.postimg.cc/Qdr8NTT1/17570841314-1.png" alt="Dolly AI Assistant" class="w-full h-full object-cover">
         </button>
-        <div id="chat-window" class="absolute bottom-28 right-0 w-80 bg-light-navy rounded-xl shadow-2xl hidden flex-col">
-            <div class="bg-indigo-700 text-white p-4 rounded-t-xl flex items-center gap-3">
+        <div id="chat-window" class="absolute bottom-28 right-0 w-80 bg-bg-light rounded-xl shadow-2xl hidden flex-col">
+            <div class="bg-red-700 text-white p-4 rounded-t-xl flex items-center gap-3">
                 <img id="chat-header-logo" src="https://i.postimg.cc/Qdr8NTT1/17570841314-1.png" class="w-10 h-10">
                 <div>
                     <h3 class="font-bold text-lg">Dolly</h3>
-                    <p class="text-xs text-indigo-200">Your AI Helper for IGNITE 2025</p>
+                    <p class="text-xs text-red-200">Your AI Helper for IGNITE 2025</p>
                 </div>
             </div>
             <div id="chat-messages" class="flex-1 p-4 overflow-y-auto modal-scrollbar flex flex-col gap-2"></div>
-            <div class="p-4 border-t border-slate-700">
+            <div class="p-4 border-t border-gray-700">
                 <form id="chat-form" class="flex gap-2">
                     <input type="text" id="chat-input" class="flex-1 px-4 py-2 rounded-full focus:outline-none" placeholder="Ask a question...">
-                    <button type="submit" class="bg-indigo-600 text-white w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center">
+                    <button type="submit" class="bg-red-600 text-white w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.428A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
                     </button>
                 </form>
@@ -411,13 +434,13 @@
         let db, auth;
         let currentAttendeeData = null;
         const firebaseConfig = {
-         apiKey: "AIzaSyAPd9loQiNnouyKtxfwv-s7jcPzpZKmhys",
-         authDomain: "ignite-event-2025-nagpur.firebaseapp.com",
-         projectId: "ignite-event-2025-nagpur",
-         storageBucket: "ignite-event-2025-nagpur.appspot.com",
-         messagingSenderId: "480552824914",
-         appId: "1:480552824914:web:d67e8c9f208c67ac7fef8b",
-         measurementId: "G-RLPWDK8MR2"
+            apiKey: "AIzaSyAPd9loQiNnouyKtxfwv-s7jcPzpZKmhys",
+            authDomain: "ignite-event-2025-nagpur.firebaseapp.com",
+            projectId: "ignite-event-2025-nagpur",
+            storageBucket: "ignite-event-2025-nagpur.appspot.com",
+            messagingSenderId: "480552824914",
+            appId: "1:480552824914:web:d67e8c9f208c67ac7fef8b",
+            measurementId: "G-RLPWDK8MR2"
         };
         
         // --- UI Elements ---
@@ -429,7 +452,6 @@
         const downloadTicketBtn = document.getElementById('downloadTicketBtn');
         const downloadReceiptBtn = document.getElementById('downloadReceiptBtn');
         const downloadPdfBtn = document.getElementById('downloadPdfBtn');
-        const downloadJpgBtn = document.getElementById('downloadJpgBtn');
         const chatBubble = document.getElementById('chat-bubble');
         const chatWindow = document.getElementById('chat-window');
         const chatForm = document.getElementById('chat-form');
@@ -458,7 +480,9 @@
             new QRious({ 
                 element: document.getElementById('modalQrCodeCanvas'), 
                 value: JSON.stringify({ id: data.docId, name: data.name, email: data.email }),
-                size: 120
+                size: 120,
+                foreground: 'black',
+                background: 'white'
             });
             document.getElementById('modalReceiptDate').textContent = new Date().toLocaleDateString('en-IN', {dateStyle: 'long'});
             document.getElementById('modalReceiptName').textContent = data.name;
@@ -474,15 +498,15 @@
         async function downloadElementAsJpg(elementId, fileName) {
             const element = document.getElementById(elementId);
             try {
-                 const bgColor = elementId === 'ticket-to-download' ? '#fdfbf4' : '#ffffff';
-                const canvas = await html2canvas(element, { scale: 3, backgroundColor: bgColor });
-                const link = document.createElement('a');
-                link.download = fileName;
-                link.href = canvas.toDataURL('image/jpeg', 0.9);
-                link.click();
+                 const bgColor = elementId === 'ticket-to-download' ? '#1F2937' : '#ffffff'; // UPDATED BG COLOR
+                 const canvas = await html2canvas(element, { scale: 3, backgroundColor: bgColor });
+                 const link = document.createElement('a');
+                 link.download = fileName;
+                 link.href = canvas.toDataURL('image/jpeg', 0.9);
+                 link.click();
             } catch (error) {
-                console.error(`Error generating JPG for ${elementId}:`, error);
-                alert(`Failed to generate ${fileName}. Please check the console.`);
+                 console.error(`Error generating JPG for ${elementId}:`, error);
+                 alert(`Failed to generate ${fileName}. Please check the console.`);
             }
         }
 
@@ -493,7 +517,7 @@
             const receiptElement = document.getElementById('receipt-to-download');
             try {
                 const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: '#fdfbf4' });
+                const ticketCanvas = await html2canvas(ticketElement, { scale: 3, backgroundColor: '#1F2937' }); // UPDATED BG COLOR
                 const ticketImgData = ticketCanvas.toDataURL('image/png');
                 const ticketImgProps = pdf.getImageProperties(ticketImgData);
                 const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -512,17 +536,16 @@
             }
         }
         
-        // --- Firebase & Payment Logic ---
         async function initializeFirebase() {
              try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                await signInAnonymously(auth);
-            } catch (error) {
-                console.error("Error initializing Firebase:", error);
-                showNotification('Initialization Error', `Could not connect to the database: ${error.message}`, 'error');
-            }
+                 const app = initializeApp(firebaseConfig);
+                 db = getFirestore(app);
+                 auth = getAuth(app);
+                 await signInAnonymously(auth);
+             } catch (error) {
+                 console.error("Error initializing Firebase:", error);
+                 showNotification('Initialization Error', `Could not connect to the database: ${error.message}`, 'error');
+             }
         }
 
         async function handlePaymentAndRegistration(e) {
@@ -552,7 +575,8 @@
                         showNotification('Registration Failed', `Payment successful, but failed to save data: ${error.message}`, 'error');
                     }
                 },
-                "prefill": { name, email, contact: mobile }, "theme": { "color": "#4338CA" }
+                "prefill": { name, email, contact: mobile }, 
+                "theme": { "color": "#EF4444" } // UPDATED THEME COLOR
             };
             const rzp1 = new Razorpay(options);
             rzp1.open();
@@ -563,16 +587,10 @@
         let chatHistory = []; 
 
         async function getDollyResponse(userMessage) {
-            // ===================================================================
-            // ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
-            //  CRITICAL: REPLACE THE PLACEHOLDER TEXT BELOW WITH YOUR GOOGLE AI KEY
-            // ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
             const apiKey = "AIzaSyCJgWB6AQi3GCj4FnlJCfPvg4RBmLvH10o";
-            
-            if (apiKey === "PASTE_YOUR_GOOGLE_AI_API_KEY_HERE" || !apiKey) {
+            if (!apiKey || apiKey === "PASTE_YOUR_GOOGLE_AI_API_KEY_HERE") {
                 return "Technical Error: The API Key is missing. Please contact the site administrator.";
             }
-
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
             const payload = {
                 contents: [...chatHistory, { role: "user", parts: [{ text: userMessage }] }],
@@ -594,7 +612,7 @@
 
         function addMessageToChat(message, sender) {
             const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message mb-3 p-3 rounded-lg max-w-[80%] ${sender === 'user' ? 'bg-indigo-600 text-white self-end rounded-br-none' : 'bg-slate-700 text-slate-200 self-start rounded-bl-none'}`;
+            messageDiv.className = `chat-message mb-3 p-3 rounded-lg max-w-[80%] ${sender === 'user' ? 'bg-red-600 text-white self-end rounded-br-none' : 'bg-gray-700 text-gray-200 self-start rounded-bl-none'}`;
             messageDiv.textContent = message;
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -620,7 +638,7 @@
             chatInput.value = '';
             const typingIndicator = document.createElement('div');
             typingIndicator.id = 'typing-indicator';
-            typingIndicator.className = 'chat-message mb-3 p-3 rounded-lg max-w-[80%] bg-slate-700 text-slate-400 self-start italic';
+            typingIndicator.className = 'chat-message mb-3 p-3 rounded-lg max-w-[80%] bg-gray-700 text-gray-400 self-start italic';
             typingIndicator.textContent = 'Dolly is typing...';
             chatMessages.appendChild(typingIndicator);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -639,7 +657,7 @@
     </script>
 
     <footer class="text-center py-6">
-        <p class="text-sm text-blue-400">By Suyog Sontakke</p>
+        <p class="text-sm text-gray-400">By Suyog Sontakke</p>
     </footer>
 
 </body>
